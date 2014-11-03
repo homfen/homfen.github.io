@@ -147,8 +147,11 @@ $(function(){
         $(str).appendTo($('.xiami'));
 
     });*/
-    var list = Math.floor(Math.random()*2)+1;
-    $(".xiamicontent").html('<embed src="http://www.xiami.com/widget/5850808_'+songList[list]+',_180_140_FF8719_000000_1/multiPlayer.swf" type="application/x-shockwave-flash" width="180" height="140" wmode="opaque">');
+    var listIndex = Math.floor(Math.random()*2)+1;
+    var songsArr = songList[listIndex].split(',');
+    songsArr = songsArr.sort(randomSort);
+    var songStr = songsArr.join(',');
+    $(".xiamicontent").html('<embed src="http://www.xiami.com/widget/5850808_'+songStr+',_180_140_FF8719_000000_1/multiPlayer.swf" type="application/x-shockwave-flash" width="180" height="140" wmode="opaque">');
 	
 });
 function setRotate(node){
