@@ -1,0 +1,98 @@
+#watch .frame-face {
+	position:relative;
+	width: 160px;
+	height: 160px;
+	border-radius: 80px;
+	background:#000;
+	box-shadow: rgba(0, 0, 0, .5) 5px 5px 5px;
+}
+#watch .frame-face:before {
+	content: '';
+	width: 120px;
+	height: 120px;
+	border-radius: 60px;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	background:white;
+	box-shadow: inset rgba(0, 0, 0, .2) 2px 2px 2px;
+}
+#watch .digits {
+	width:120px;
+	height:120px;
+	border-radius:60px;
+	position: absolute;
+	top: 28px;
+	left:28px;
+}
+#watch .digits:before{
+	content:'';
+	width:20px;
+	height:20px;
+	border-radius: 10px;
+	position: absolute;
+	top:49px;
+	left:51px;
+	background:black;
+	opacity: 0.8;
+}
+#watch .digits div {
+	font-size: 16px;
+	display: block;
+	width:32px;
+	height:32px;
+	position: absolute;
+	top:0;
+	left:0;
+	line-height: 16px;
+	text-align: center;
+	font-weight: bold;
+}
+#watch .digits div:nth-child(1) {
+	-webkit-transform: translate(88px,50px);
+	-moz-transform: translate(88px,50px);
+	transform: translate(88px,50px);
+}
+#watch .digits div:nth-child(2) {
+	-webkit-transform: translate(44px,100px);
+	-moz-transform: translate(44px,100px);
+	transform: translate(44px,100px);
+}
+#watch .digits div:nth-child(3) {
+	-webkit-transform: translate(0,50px);
+	-moz-transform: translate(0,50px);
+	transform: translate(0,50px);
+}
+#watch .digits div:nth-child(4) {
+	-webkit-transform: translate(44px, 6px);
+	-moz-transform: translate(44px, 6px);
+	transform: translate(44px, 6px);
+}
+#watch .hours-hand {
+	width: 8px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+	background: #232425;
+	position: absolute;
+	top:87px;
+	left: 85px;
+	box-shadow: #232425 0 0 2px;	
+	-webkit-transform-origin: 4px 0;
+	-moz-transform-origin: 4px 0;
+	transform-origin: 4px 0;
+	transform:rotate(-180deg);
+}
+#watch .minutes-hand {
+	width: 4px;
+	height: 45px;
+	border-radius: 2px 2px 2px 2px;
+	background: #232425;
+	position: absolute;
+	top:87px;
+	left: 87px;
+	box-shadow: #232425 0 0 2px;
+	-webkit-transform-origin: 2px 0;
+	-moz-transform-origin: 2px 0;
+	transform-origin: 2px 0;
+	transform:rotate(-180deg);
+}

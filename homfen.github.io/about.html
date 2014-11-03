@@ -1,0 +1,71 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>About Me</title>
+	<style type="text/css">
+	body{background:url(image/about.jpg);}
+	.main{width:850px;height:500px;margin:auto;margin-top:100px;}
+	.pic{width:150px;height:200px;display:inline-block;vertical-align:top;border-radius:5px;box-shadow:5px 5px 15px #000;}
+	.content{width:650px;height:500px;display:inline-block;margin-left:40px;}
+	#photo{border-radius:5px;}
+	.name{color:white;font-size:80px;text-shadow:2px 3px 2px #000;}
+	.row{width:100%;min-height:40px;border-radius:10px;background:#aaa;margin-top:10px;}
+	.row:hover{color:white;background:#bbb;}
+	img{margin-top:5px;margin-left:5px;}
+	p{display:inline-block;line-height:10px;vertical-align:top;}
+	a{text-decoration:none;}
+	hr{color:#aaa;box-shadow:0 0 5px #bbb;}
+	.footer{text-align:center;margin-top:30px;}
+	</style>
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript">
+	var image = new Image();
+	image.src="image/wo4.png";
+	$(image).load(function(){
+		var canvas = document.getElementById("photo");
+		if(canvas.getContext('2d')){
+			var ctx = canvas.getContext('2d');
+			ctx.drawImage(image,40,0,435,602,0,0,150,200);
+		}
+	});
+	</script>
+</head>
+<body>
+	<div class="main">
+		<div class="pic"><canvas id="photo" width="150" height="200"></div>
+		<div class='content'>
+			<div class="name">Homfen</div>
+			<div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>90后，生于1991年</p>
+				</div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>2013年毕业于浙江工业大学计算机科学与技术+自动化专业</p>
+				</div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>目前就职于<a href="http://www.ctrip.com" target="_blank">携程计算机技术(上海)有限公司</a>前端工程师</p>
+				</div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>擅长Javascript,Jquery,ASP.NET,PHP,Java,熟悉Objective-C,Backbone,NodeJS</p>
+				</div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>只有偏执狂才能生存</p>
+				</div>
+				<div class="row">
+					<img src="image/right.png" width="30"/>
+					<p>Email:homfen at gmail.com</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class='footer'>
+			<p class="copyrights" style="font-size:14px;margin-left:auto;margin-right:auto;margin-top:-10px;">Copyright © 2013 - <a href="http://flynotions.com" title="Copyright © 2013 flynotions.com" style='color:red;text-decoration:none;'>flynotions.com</a></p>
+		</div>
+	</div>
+</body>
+</html>
