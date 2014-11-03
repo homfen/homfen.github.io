@@ -147,7 +147,7 @@ $(function(){
         $(str).appendTo($('.xiami'));
 
     });*/
-    var listIndex = Math.floor(Math.random()*2)+1;
+    var listIndex = Math.floor(Math.random()*2);
     var songsArr = songList[listIndex].split(',');
     songsArr = songsArr.sort(randomSort);
     var songStr = songsArr.join(',');
