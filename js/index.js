@@ -148,7 +148,7 @@ $(function(){
 
     });*/
 		var list = Math.floor(Math.random()*2)+1;
-    $(".xiami iframe").attr("src","test/xiamitest.php?list="+list);
+    $(".xiami iframe").attr("src","http://homfen.flynotions.com/test/xiamitest.php?list="+list);
 	
 });
 function setRotate(node){
