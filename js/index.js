@@ -111,7 +111,7 @@ $(function(){
     }).bind('mouseleave',function(){
         num3 = setRotate('#blogCanvas');
     }).bind("click",function(){
-    	window.open("http://homfen.flynotions.com/typecho","_blank");
+    	window.open("http://homfen.github.io/Jekyll","_blank");
     });
     $('#weiboCanvas').bind('mouseenter',function(){
         clearRotate(num4);
