@@ -1,7 +1,3 @@
-source: .
-layouts: ./_layouts
-include: ./_includes
-
 baseurl: "/Jekyll"
 url: "http://homfen.github.io/Jekyll"
 auto: true
