@@ -2,6 +2,8 @@
 layout: default
 title: Homfen blog
 ---
+<link type="text/css" href="default.css">
+{%include header.html%}
 <h2>{{ page.title }}</h2>
 <p>All posts</p>
 <ul>
@@ -9,3 +11,4 @@ title: Homfen blog
     <li>{{ post.date | date_to_string }}<a href="{{post.url}}">{{post.title}}</a></li>
     {%endfor%}
 </ul>
+{%include footer.html%}
