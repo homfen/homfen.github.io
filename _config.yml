@@ -1,14 +1,14 @@
-name: Your New Jekyll Site
-description: Blogging about stuffs
-meta_description: "Your New Jekyll Site, Blogging about stuffs"
+name: Homfen's Blog
+description: My New Jekyll Site,That's It.
+meta_description: ""
 
 markdown: redcarpet
 highlighter: pygments
 logo: false
 paginate: 15
-baseurl: /jekyll
+baseurl: /jekyll/
 domain_name: 'http://homfen.github.io'
 
 # Details for the RSS feed generator
-url:            'http://homfen.github.io/jekyll'
+url:            'http://homfen.github.io/jekyll/'
 author:         'Homfen'
