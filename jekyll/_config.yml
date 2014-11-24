@@ -10,5 +10,5 @@ baseurl: /jekyll
 domain_name: 'http://homfen.github.io'
 
 # Details for the RSS feed generator
-url:            'blog url'
-author:         'Your Name'
+url:            'http://homfen.github.io/jekyll'
+author:         'Homfen'
