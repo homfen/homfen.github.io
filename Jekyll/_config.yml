@@ -1,0 +1,14 @@
+name: Homfen
+description: My jekyll,that's it.
+meta_description: "My New Jekyll Site, Blogging about frontend"
+
+markdown: redcarpet
+highlighter: pygments
+logo: false
+paginate: 15
+baseurl: /Jekyll
+domain_name: 'http://homfen.github.io'
+
+# Details for the RSS feed generator
+url:            'http://homfen.github.io'
+author:         'Homfen'
