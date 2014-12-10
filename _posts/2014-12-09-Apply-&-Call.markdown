@@ -65,7 +65,7 @@ call的参数没有数量限制，第一个参数和apply一样，从第二个�
 </code>
 </pre>
 这段代码的执行结果如下图：
-<img src="http://homfen.flynotions.com/typecho/usr/uploads/2014/12/3793065623.png"/>
+<img src="../assets/images/article/3793065623.png"/>
 
 第一遍看的时候可能有点晕，没关系，来分析下。首先，关键的一点，这里用到了闭包，在函数o内部，r是一个全局变量，temp是一个局部变量，把temp指向r指向的函数，之后把r指向另一个新建的函数，在这个函数内部又调用了temp。所以，只要这个r没有被删除，局部变量temp就会一直留在内存中。明白了这一点，接下去理解起来就轻松多了。
 <pre>
@@ -78,7 +78,6 @@ call的参数没有数量限制，第一个参数和apply一样，从第二个�
         //相当于return f(arguments);
         return temp1.apply(this,f(arguments));
     }
-
     //第二次执行o
     temp = function(){//temp2
         return temp1.apply(this,f(arguments));
@@ -87,9 +86,7 @@ call的参数没有数量限制，第一个参数和apply一样，从第二个�
         //相当于return f(f(arguments));
         return temp2.apply(this,f(arguments));
     }
-
     ...
-
     //第十次就是 f(f(f(f(f(f(f(f(f(f("=")))))))))) 
 </code>
 </pre>
