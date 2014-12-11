@@ -5,7 +5,8 @@ date:   2014-10-22 10:18:00
 categories: Polymer
 ---
 
-![polymer-logo.png][1]
+<img src="http://homfen.flynotions.com/typecho/usr/uploads/2014/10/3178265018.png"/>
+<!--![polymer-logo.png][1]-->
 
 最近在学习Polymer，感觉还挺有意思的。主要涉及的是Web Components方面的知识，将所需的组件封装起来，并保存到单独的html文件中，使用的时候只要将这个html文件通过link标签导入进来（像css样式一样），在适当的位置编写相应的自定义标签，就可以了，非常的方便。
 
