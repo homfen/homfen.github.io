@@ -165,3 +165,4 @@ div.col-sm-3 img#about {
 .pagination .previous,.pagination .next{display:inline-block;float:left;}
 .pagination .pages{display:inline-block;list-style-type: none;margin:0;padding:0;text-align:center;width:350px;float:left;}
 .pagination .pages .page{display: inline;}
+.content .post img{max-width:100%;}
