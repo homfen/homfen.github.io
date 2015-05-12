@@ -1,0 +1,3 @@
+@font-face{font-family:'baiduzy';src:url('../fonts/baiduzy.ttf')}*{margin:0;padding:0}html,body{width:100%;height:100%}
+#main{width:100%;height:100%;background:-webkit-radial-gradient(50% 50%,#777,#333);position:relative}#circle{width:600px;height:600px;position:absolute;left:50%;top:50%;margin-left:-300px;margin-top:-350px;border-radius:300px;background-color:#222;box-shadow:inset 0 0 50px #000}
+#circle header{margin-top:150px;text-align:center;font-family:Georgia,Verdana,Arial;font-size:80px;font-weight:bold;line-height:1.5em;color:#eee;text-shadow:rgba(0,0,0,0.5) -1px 0,rgba(0,0,0,0.3) 0 -1px,rgba(255,255,255,0.5) 0 1px,rgba(0,0,0,0.3) -1px -2px}
