@@ -7,7 +7,7 @@ $(function(){
     var pause = $("#pause");
     var next = $("#next");
     var index = 0;
-    player.on("end",function(){
+    player.on("ended",function(){
         nextSong();
     });
     play.on("click",function(){
