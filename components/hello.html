@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<dom-module id="hello-tag" sub-title="{{value}}">
+	<template>
+		<div>
+			<h1><span>{{subTitle}}</span></h1>
+
+			<template is="dom-repeat" id="helloTags" items="{{hellos}}"
+				<div>
+					<h2 on-click="showMsg">hello,<span>{{item.msg}}</span></h2>
+					<template is="dom-if" if="{{item.isFirst}}">
+						<div><hr/></div>
+					</template>
+				</div>
+			</template>
+		</div>
+	</template>
+
+	<script>
+	Polymer({
+		is:"hello-tag",
+		properties:{
+			subTitle:{
+				type:String,
+				notify:true,
+				value:"No title"
+			}
+		},
+		ready:function(){
+			this.hellos = [
+				{msg:"polymer",isFirst:true},
+				{msg:"world",isFirst:false}
+			];
+			this.$.helloTags.style.color = "red";
+			this.$$("span")[0].style.color = "red";
+		},
+		showMsg:function(e){
+			var model = e.model;
+			model.set("item.msg",model.item.msg.toUpperCase());
+			var item = this.$.helloTags.itemForElement(e.target);
+			console.log(item.msg);
+		}
+	});
+</script>
+</dom-module>
