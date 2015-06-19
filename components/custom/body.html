@@ -1,0 +1,68 @@
+<link rel="import" href="../../polymer/polymer.html"/>
+<dom-module id="homfen-body">
+	<style>
+	@font-face {
+	    font-family: 'OpenSansRegular';
+	    src: url('../../fonts/OpenSansRegular.ttf');
+	}
+	:host{
+		width:760px;
+		position:absolute;
+		left:200px;
+		top:0;
+		padding-top:30px;
+	};
+	:host ::content *{
+		margin:0;
+		padding:0;
+		color:black;
+		font-family:"OpenSansRegular",Arial,serif;
+	};
+	:host ::content #bodyContainer{
+		width:718px;
+		background-color: white;
+		border-radius: 10px;
+		padding:20px;
+		border:1px solid black;
+	};
+	:host ::content .articalProperties{font-size:14px;};
+	:host ::content p{font-size:18px;}
+	</style>
+
+	<template>
+		<div id="bodyContainer">
+			<template is="dom-if" if="{{hasTitle}}">
+				<h1>{{pageTitle}}</h1>
+				<template is="dom-if" if="{{hasTime}}">
+					<div class="articalProperties"><span>{{pageTime}}</span> by <span>{{pageAuthor}}</span>,categories:<span>{{pageCategories}}</span></div>
+				</template>
+				<hr/>
+			</template>
+			<content></content>
+		</div>
+	</template>
+
+	<script>
+	Polymer({
+		is:"homfen-body",
+		properties:{
+			pageTitle:{
+				type:String
+			},
+			pageTime:{
+				type:String
+			},
+			pageAuthor:{
+				type:String
+			},
+			pageCategories:{
+				type:String
+			}
+		},
+		ready:function(){
+			this.hasTitle = this.pageTitle==""?false:true;
+			this.hasTime = this.pageTime==""?false:true;
+		}
+	});
+	</script>
+</dom-module>

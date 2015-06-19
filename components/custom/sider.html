@@ -1,0 +1,59 @@
+<link rel="import" href="../../polymer/polymer.html"/>
+<dom-module id="homfen-sider">
+	<style>
+	@font-face {
+	    font-family: 'OpenSansRegular';
+	    src: url('../../fonts/OpenSansRegular.ttf');
+	}
+	:host{
+		width:200px;
+		position:absolute;
+		left:0;
+		top:0;
+		padding-top:30px;
+	};
+	:host ::content dd{
+		font-size:30px;
+		line-height:1.5em;
+		border-bottom:1px solid white;
+		text-indent:10px;
+	};
+	:host ::content dd:hover{
+		background-color:#ffeeee;
+		border-bottom:1px solid #ff4080;
+	};
+	:host ::content a{
+		text-decoration: none;
+		color:black;
+		font-family:"OpenSansRegular",Arial,serif;
+	};
+	:host ::content a:hover{
+		text-decoration: none;
+		color:#ff4080;
+	};
+	</style>
+
+	<template>
+		<div>
+			<dl>
+				<template is="dom-repeat" items="{{links}}">
+					<dd><a href="{{item.url}}">{{item.text}}</a></dd>
+				</template>
+			</dl>
+		</div>
+	</template>
+
+	<script type="text/javascript">
+	Polymer({
+		is:"homfen-sider",
+		ready:function(){
+			var prefixUrl = "http://"+location.hostname+(location.port==""?"":":"+location.port)+"/jekyll/";
+			this.links = [
+				{text:"Home",url:prefixUrl},
+				{text:"Categories",url:prefixUrl+"categories.html"},
+				{text:"Weibo",url:"http://weibo.com/homfen"}
+			];
+		}
+	});
+	</script>
+</dom-module>

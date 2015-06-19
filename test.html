@@ -4,8 +4,28 @@
 	<title>test page</title>
 	<script type="text/javascript" src="./webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="./components/custom/header.html"/>
+	<link rel="import" href="./components/custom/sider.html"/>
+	<link rel="import" href="./components/custom/body.html"/>
+	<link rel="import" href="./components/custom/footer.html"/>
+	<style type="text/css">
+	*{margin:0;padding:0;}
+	</style>
 </head>
 <body>
 	<homfen-header></homfen-header>
+	<div style="width:960px;height:auto;position:relative;margin:100px auto;padding-top:100px;">
+		<homfen-sider></homfen-sider>
+		<homfen-body page-title="post">
+			<p>
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			</p>
+		</homfen-body>
+	</div>
+	<homfen-footer></homfen-footer>
 </body>
 </html>
