@@ -17,6 +17,7 @@
 		padding:0;
 		color:black;
 		font-family:"OpenSansRegular",Arial,serif;
+		line-height:1.5em;
 	};
 	:host ::content #bodyContainer{
 		width:718px;
@@ -25,19 +26,23 @@
 		padding:20px;
 		border:1px solid black;
 	};
-	:host ::content .articalProperties{font-size:14px;};
+	:host ::content .bodyHeader{margin:0 0 10px 0;}
+	:host ::content h1{margin:5px 0;}
+	:host ::content .articalProperties{font-size:14px;margin:5px 0;};
 	:host ::content p{font-size:18px;}
 	</style>
 
 	<template>
 		<div id="bodyContainer">
-			<template is="dom-if" if="{{hasTitle}}">
-				<h1>{{pageTitle}}</h1>
-				<template is="dom-if" if="{{hasTime}}">
-					<div class="articalProperties"><span>{{pageTime}}</span> by <span>{{pageAuthor}}</span>,categories:<span>{{pageCategories}}</span></div>
+			<div class="bodyHeader">
+				<template is="dom-if" if="{{hasTitle}}">
+					<h1>{{pageTitle}}</h1>
+					<template is="dom-if" if="{{hasTime}}">
+						<div class="articalProperties"><span>{{pageTime}}</span> by <span>{{pageAuthor}}</span>,categories:<span>{{pageCategories}}</span></div>
+					</template>
+					<hr/>
 				</template>
-				<hr/>
-			</template>
+			</div>
 			<content></content>
 		</div>
 	</template>
@@ -61,7 +66,7 @@
 		},
 		ready:function(){
 			this.hasTitle = this.pageTitle==""?false:true;
-			this.hasTime = this.pageTime==""?false:true;
+			this.hasTime = (!this.pageTime||this.pageTime=="")?false:true;
 		}
 	});
 	</script>
