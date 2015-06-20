@@ -1,9 +1,10 @@
 ---
-layout: pdefault-min
+layout: default
 title: home
 ---
 
-<homfen-body page-title="posts">
+<div id="home">
+    <h1>Posts</h1>
     <ul class="posts">
     {% for post in paginator.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
@@ -55,4 +56,4 @@ title: home
         </p>
       {% endif %}
     </div>
-</homfen-body>
+</div>

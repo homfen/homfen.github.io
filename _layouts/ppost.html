@@ -1,11 +1,9 @@
 ---
-layout: default
+layout: pdefault-min
 ---
-<h1>{{ page.title }}</h1>
-<span class="time">{{ page.date | date_to_string }} by homfen</span>
-<span class="categories">, categories:{{ page.categories}}</span>
-<div class="content">
-	<div class="post">{{ content }}</div>
+
+<homfen-body page-title="{{page.title}}" page-time="{{ page.date | date_to_string }}" page-author="homfen" page-categories="{{ page.categories}}">
+    <div class="post">{{ content }}</div>
     <div>
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="{{page.id}}" data-title="{{page.title}}" data-url="{{page.url}}"></div>
@@ -24,4 +22,4 @@ var duoshuoQuery = {short_name:"homfengithub"};
 	</script>
 <!-- 多说公共JS代码 end -->
     </div>
-</div>
+</homfen-body>
