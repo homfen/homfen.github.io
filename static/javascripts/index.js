@@ -78,15 +78,6 @@ $(function () {
         return Math.random() > .5 ? -1 : 1;
     }
 
-    // function showSongLoading() {
-    //     $('#songloading').removeClass('hide');
-    //     btnDisable = true;
-    // }
-    // function hideSongLoading() {
-    //     $('#songloading').addClass('hide');
-    //     btnDisable = false;
-    // }
-
     songIds.unshift('szjz', 'gbqq');
     songsLen = songIds.length;
     songIds.sort(randomSort);
@@ -95,85 +86,6 @@ $(function () {
         initRhythm();
         initAudioContext(player[0]);
     }
-
-    $.post('./api/weather', null, function (data) {
-        data = JSON.parse(data);
-        $('#send').data('user', data.ip || data.retData.city);
-        if (data.errNum === 0) {
-            var retData = data.retData;
-            var now = new Date();
-            var nowString = now.toISOString();
-            nowString = nowString.slice(0, nowString.indexOf('T'));
-            var sunrise = retData.sunrise;
-            var sunset = retData.sunset;
-            var sunriseTime = new Date(Date.parse(nowString + 'T' + sunrise + ':00.000Z'));
-            var sunsetTime = new Date(Date.parse(nowString + 'T' + sunset + ':00.000Z'));
-            var isDay = false;
-            if (sunriseTime < now && now < sunsetTime) {
-                isDay = true;
-            }
-            var weather = retData.weather;
-            var sun = weather.indexOf('晴') >= 0;
-            var cloudy = weather.indexOf('云') >= 0;
-            var rain = weather.indexOf('雨') >= 0;
-            var snow = weather.indexOf('雪') >= 0;
-            var light = weather.indexOf('雷') >= 0;
-            var overcast = weather.indexOf('阴') >= 0;
-            var ice = weather.indexOf('雹') >= 0;
-
-            var weatherDom = $('#weather');
-            var className = 'sun';
-            if (sun && cloudy) {
-                className = 'suncloudy';
-            }
-            else if (cloudy) {
-                className = 'cloudy';
-            }
-            else if (sun) {
-                className = 'sun';
-            }
-            else if (rain && snow) {
-                className = 'rainsnow';
-            }
-            else if (rain) {
-                className = 'rain';
-            }
-            else if (snow) {
-                className = 'snow';
-            }
-            else if (light) {
-                className = 'light';
-            }
-            else if (overcast) {
-                className = 'overcast';
-            }
-            else if (ice) {
-                className = 'ice';
-            }
-            if ((sun || cloudy) && !isDay) {
-                className += 'night';
-            }
-            weatherDom.addClass(className);
-            var title = [retData.city + '：' + weather];
-            var temperature = retData.temp + '摄氏度';
-            if (retData.h_tmp && retData.l_tmp) {
-                temperature += '(' + retData.l_tmp + '~' + retData.h_tmp + ')';
-            }
-            title.push(temperature);
-            title.push('<br/>日出：' + sunrise);
-            title.push('日落：' + sunset);
-            if (retData.WS) {
-                title.push('<br/>' + retData.WD + '，' + retData.WS);
-            }
-            $('#weatherDetail').html(title.join('，'));
-        }
-    });
-
-    $('#weatherNav').on('mouseover', function () {
-        $('#weather').slideDown();
-    }).on('mouseout', function () {
-        $('#weather').fadeOut();
-    });
 
     $('#send').on('click', function () {
         var info = $('#question').val().trim();
