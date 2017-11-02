@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/responsive/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/responsive/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Responsive Web Design</title>
+      <link>http://blog.homfen.me/2013/12/20/responsive-web-design/</link>
+      <pubDate>Fri, 20 Dec 2013 00:28:22 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2013/12/20/responsive-web-design/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
+
+&lt;p&gt;自适应网页设计（英语：Responsive web design，通常缩写为RWD）是一种网页设计的技术做法，该设计可使网站在多种浏览设备（从桌面电脑显示器到移动电话或其他移动产品设备）上阅读和导航，同时减少缩放、平移和滚动。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CSS3 Media Query&lt;/strong&gt;（媒介查询）插件，这是响应式设计的核心。它根据条件告诉浏览器如何为指定视图宽度渲染页面。媒介查询的数量可以根据需要添加。其目的在于为指定的视图宽度设定不同的CSS规则，来实现不同的布局。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@media only screen and (max-width: 640px){……}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Meta&lt;/strong&gt;标签，因为大多数移动浏览器将HTML页面放大为宽的视图（viewport）以符合屏幕分辨率，这可以使用视图的meta标签来进行重置。在部分加入这个meta标签。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width; initial-scale=1.0; maximum-scale=1.0;&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/categories/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/categories/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>vsftpd</title>
+      <link>http://blog.homfen.me/2016/10/14/vsftpd/</link>
+      <pubDate>Fri, 14 Oct 2016 23:02:08 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2016/10/14/vsftpd/</guid>
+      <description>&lt;p&gt;在CentOS上安装vsftpd：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum install vsftpd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装完毕后修改&lt;code&gt;/etc/vsftpd/vsftpd.conf&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;anonymous_enable=NO
+local_enable=YES
+chroot_local_user=YES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;添加用户并指定目录，设置密码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;useradd –s /sbin/nologin –d /var/www/ username
+passwd username
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改目录的权限：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod -R 777 /var/www
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重启vsftpd服务:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl restart vsftpd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;FileZilla中的设置：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;端口默认&lt;/li&gt;
+&lt;li&gt;加密选择“只使用普通FTP（不安全）”&lt;/li&gt;
+&lt;li&gt;登录类型选择“正常”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;over，现在能用FileZilla上传文件到服务器了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kobold2D and XCode5</title>
+      <link>http://blog.homfen.me/2014/02/19/kobold2d-and-xcode5/</link>
+      <pubDate>Wed, 19 Feb 2014 02:08:52 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/02/19/kobold2d-and-xcode5/</guid>
+      <description>&lt;p&gt;用Xcode新建Kobold2D项目时，报错：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int newSize = [(SingleFileDownloader*)[_sizeCheckers objectAtIndex: _curFile] contentLength];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Multiple methods named &amp;lsquo;contentLength&amp;rsquo;&lt;/p&gt;
+
+&lt;p&gt;解决方法，打开终端，输入：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;curl https://s3.amazonaws.com/mgwu-misc/xcode5-kobold.sh | sh
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Button and Drawable</title>
+      <link>http://blog.homfen.me/2014/02/10/button-and-drawable/</link>
+      <pubDate>Mon, 10 Feb 2014 00:16:34 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/02/10/button-and-drawable/</guid>
+      <description>&lt;p&gt;如何获取Button中的Drawable&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Drawable img1 = button.getCompoundDrawables()[0];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;与其他Drawable比较&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Drawable img2 = getResources().getDrawable(R.drawable.name);
+Bitmap bitmap1 = ((BitmapDrawable)img1).getBitmap();
+Bitmap bitmap2 = ((BitmapDrawable)img2).getBitmap();
+if(bitmap1==bitmap2){
+    ...     
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>oh-my-zsh安装配置</title>
+      <link>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 22 Jan 2014 23:21:32 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/oh-my-zsh.png&#34;--&gt;
+
+&lt;p&gt;看了mac君关于zsh的文章“终极Shell”(&lt;a href=&#34;http://macshuo.com/?p=676&#34; target=&#34;_blank&#34;&gt;查看原文&lt;/a&gt;)，一步步操作下来 设置默认使用zsh&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;chsh -s /bin/zsh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;然后安装「oh my zsh」&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置.zshrc 用vim打开.zshrc文件，找到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;# Example aliases
+# alias zshconfig=&amp;quot;mate ~/.zshrc&amp;quot;
+# alias ohmyzsh=&amp;quot;mate ~/.oh-my-zsh&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在后面添加自己的配置即可 补充一下，如何设置TextMate的环境变量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;sudo ln -s /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就可以在终端中用mate命令打开TextMate了&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Blank page on android application startup</title>
+      <link>http://blog.homfen.me/2013/12/02/blank-page-on-android-application-startup/</link>
+      <pubDate>Mon, 02 Dec 2013 16:30:21 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2013/12/02/blank-page-on-android-application-startup/</guid>
+      <description>&lt;p&gt;现象： 打开应用时先出现1秒左右的带有标题的空白页面，然后进入LAUNCHER Activity&lt;/p&gt;
+
+&lt;p&gt;原因分析： 在自定义的主题中，设置的父主题，如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;style name=&amp;quot;customTheme&amp;quot; parent=&amp;quot;android:Theme.Light&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决方法： 将主题设置为android:Theme.Wallpaper&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;style name=&amp;quot;customTheme&amp;quot; parent=&amp;quot;android:Theme.Wallpaper&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mac音乐播放器制作</title>
+      <link>http://blog.homfen.me/2013/11/16/mac%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B6%E4%BD%9C/</link>
+      <pubDate>Sat, 16 Nov 2013 12:13:52 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2013/11/16/mac%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B6%E4%BD%9C/</guid>
+      <description>&lt;p&gt;这是大学毕业设计做的东西，论文加编码差不多1个月时间，实际上编码时间只有两个星期不到，由于当时已经在实习，所以就请了一个星期的假，用来写代码，一个星期下来，基本上功能就已经完成，之后一个星期便是利用下班后的时间做点小的修改，然后就答辩了，所以说，毕业设计也不难，只要你用心去做。 由于之前看过一点Objective-C的基础知识，所以就直接开始编程了。虽然看看书，语法掌握很简单，但是还是有很多东西是不懂的，就拿Xcode来说吧，和VS就完全不同了。不懂的时候，就查官方文档，苹果的文档还是很不错的，上面的列子可以直接下载下来运行。&lt;/p&gt;
+
+&lt;p&gt;播放器使用Novocaine的解码库，所以只能播放mp3文件，除此之外还具有简单的播放控制、列表管理、歌词显示功能，歌词部分调用了&lt;a href=&#34;http://geci.me&#34; target=&#34;_blank&#34;&gt;歌词迷&lt;/a&gt;api。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/player.jpg&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;右下角最右边的歌词按钮，旁边的是换歌词的按钮(因为歌词搜出了会有不对的情况)，只是粗略的实现了基本功能，应该还存在一些bug。&lt;/p&gt;
+
+&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; update: 2016.5.2&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/p&gt;
+
+&lt;p&gt;最近发现在10.11系统下很多功能都不能用了，所以就修了下bug，顺便重构了部分代码。&lt;/p&gt;
+
+&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; update: 2016.6.19&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/p&gt;
+
+&lt;p&gt;未连接网络检测，歌词功能完善及bug修复&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://pan.baidu.com/s/1geD09vP&#34; target=&#34;_blank&#34;&gt;点击下载&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

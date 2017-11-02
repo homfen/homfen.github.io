@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Express.js Get Client IP</title>
+      <link>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</link>
+      <pubDate>Wed, 19 Oct 2016 22:13:44 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</guid>
+      <description>&lt;p&gt;Express中如果想获取客户端的IP，首先要设置trust proxy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;app.set(&#39;trust proxy&#39;, 1);
+// or
+app.enable(&#39;trust proxy&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;设置完之后，就可以从req中取到IP了：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var ip = req.ip;
+// or
+ip = req.headers[&#39;x-forwarded-for&#39;] || req.connection.remoteAddress;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;如果这样还不能获取到IP，比如获取到的是“:::ffff:x.x.x.x”这样的IP，那么大概就是代理搞得鬼了。比如nginx，如果没有配置，那么这些信息在转发的时候就都丢失了，只需要加上这几句：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header Host $http_host;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tomcat on Mavericks</title>
+      <link>http://blog.homfen.me/2014/03/31/tomcat-on-mavericks/</link>
+      <pubDate>Mon, 31 Mar 2014 00:32:25 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/03/31/tomcat-on-mavericks/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/tomcat.jpeg&#34;--&gt;
+
+&lt;p&gt;在Mac上安装Tomcat非常简单 第一步，从&lt;a href=&#34;http://tomcat.apache.org/index.html&#34; target=&#34;_blank&#34;&gt;Tomcat&lt;/a&gt;官网下载压缩包，然后解压&lt;br /&gt;
+第二步，将解压好的文件夹重新命名一个简单的名字，复制到/Library目录下&lt;br /&gt;
+第三步，进入Tomcat下的bin目录中，设置startup.sh、shutdown.sh、catalina.sh三个文件的权限，添加执行权限，可以使用命令：&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;chmod u+x 文件名
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第四步，运行startup.sh，启动Tomcat，此时，如果设置正常，打开浏览器，输入localhost:8080就能看到Tomcat的欢迎页面，如果遇到错误，如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Exception in thread &amp;quot;main&amp;quot; java.lang.UnsupportedClassVersionError: org/apache/catalina/startup/Bootstrap : Unsupported major.minor version 51.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;是由于Tomcat版本与Mac上的Java版本不匹配。在终端中输入：java -version查看java版本，对应关系为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;tomcat version:8.0.x -------&amp;gt; java version:7 and later 
+tomcat version:7.0.x -------&amp;gt; java version:6 and later 
+tomcat version:6.0.x -------&amp;gt; java version:5 and later 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Mavericks默认java版本为1.6.0_65,如果想升级到7有一定的风险，因为7只能在64位浏览器下运行，而Mac上的Chrome只有32位&lt;/p&gt;
+
+&lt;p&gt;第五步：运行shutdown.sh，关闭Tomcat&lt;br /&gt;
+当然你也可以设置软链接，这样就能在终端中快速启动和关闭Tomcat&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/chrome/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Chrome插件开发</title>
+      <link>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 07 Apr 2014 20:22:55 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/Chrome-Web-Store.jpg&#34;--&gt;
+
+&lt;p&gt;关于谷歌浏览器插件开发的详细内容，可以访问谷歌的文档“&lt;a href=&#34;https://developer.chrome.com/extensions/getstarted&#34; target=&#34;_blank&#34;&gt;Getting Start&lt;/a&gt;”，本文主要介绍下简单Chrome插件开发。&lt;/p&gt;
+
+&lt;p&gt;简单的Chrome插件包含三个文件，一个manifest.json是配置文件，一个js文件，一个图标。
+来看一下manifest.json中的基本配置：&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;test&amp;quot;,//插件名称
+    &amp;quot;description&amp;quot;: &amp;quot;alert&amp;quot;,//插件描述
+    &amp;quot;version&amp;quot;: &amp;quot;0.0.1&amp;quot;,
+    &amp;quot;permissions&amp;quot;: [&amp;quot;tabs&amp;quot;,&amp;quot;&amp;lt;all_urls&amp;gt;&amp;quot;],
+    &amp;quot;browser_action&amp;quot;: {
+        &amp;quot;default_icon&amp;quot;: &amp;quot;test.png&amp;quot;//插件图标，xx.jpg
+    },
+    &amp;quot;content_scripts&amp;quot;: [{
+        &amp;quot;matches&amp;quot;: [
+            &amp;quot;http://*/*&amp;quot;,
+            &amp;quot;https://*/*&amp;quot;
+        ],
+        &amp;quot;js&amp;quot;: [&amp;quot;load.js&amp;quot;],//js文件
+        &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot;//在页面加载完时运行
+    }], 
+    &amp;quot;manifest_version&amp;quot;:2
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在load.js中可以对加载完的页面做任何操作&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;编写完成后，把这三个文件放在一个文件夹下，打开Chrome设置，选择左侧Extensions，点击“Load unpacked extension&amp;hellip;”按钮将前面的文件夹加载进来即可。&lt;/p&gt;
+
+&lt;p&gt;到这里，我们的插件只能在进入页面的时候进行一些操作，但是少了关键的菜单，下面就来弄个菜单。&lt;/p&gt;
+
+&lt;p&gt;第一步，修改manifest，在browser_action中添加一项：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;browser_action&amp;quot;: {
+    &amp;quot;default_icon&amp;quot;: &amp;quot;test.png&amp;quot;,
+    &amp;quot;default_popup&amp;quot;:&amp;quot;popup.html&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其实菜单也是一个html文件，所以是通过html、css来定义它的样式，通过绑定事件来实现功能，popup.html:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta http-equiv=&amp;quot;Content-Type&amp;quot; content=&amp;quot;text/html; charset=utf-8&amp;quot; /&amp;gt;
+        &amp;lt;title&amp;gt;alert&amp;lt;/title&amp;gt;
+        &amp;lt;style&amp;gt;
+        div{
+            width:100px;
+            height:20px;
+            line-height:20px;
+            text-align:center;
+            font-family: sans-serif;
+            font-size:0.8em;
+            background:#F3F3F3;
+            margin-bottom:4px;
+            cursor:pointer;
+            border-radius:3px;
+        }
+        div:hover{
+            background:#CCCCCC;
+        }
+        &amp;lt;/style&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;div id=&amp;quot;alert&amp;quot;&amp;gt;alert&amp;lt;/div&amp;gt;
+        &amp;lt;script src=&amp;quot;popup.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;样式比较简单，只有一个div，也就是一个按钮，通过引入popup.js文件来绑定事件，这里必须通过script标签引入外部的js，而不能写內联js，不然会报错。popup.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;document.querySelector(&amp;quot;#alert&amp;quot;).addEventListener(&amp;quot;click&amp;quot;,function(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: &amp;quot;showTitle&amp;quot;}, function(response) {
+            console.log(&amp;quot;ok&amp;quot;);
+        });
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;给alert绑定了click事件，内部的实现比较有意思，通过chrome.tabs.query来获取当前的tab，然后通过chrome.tabs.sendMessage给当前tab发送消息，popup和content之间就是通过message来通信的，为什么要搞的这么麻烦呢，因为popup和content是相互隔离的，是两个独立的页面，当然不能在一个页面调用另一个页面的方法。load.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function showTitle(){
+    alert(document.title);
+}
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {  
+    var action = request.action;
+    switch(action){
+        case &amp;quot;showTitle&amp;quot;:
+            showTitle();
+            break;
+        default:
+            console.log(&amp;quot;unknown action&amp;quot;);
+            break;
+    }
+});
+
+console.log(&amp;quot;loaded&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;load.js里面，通过chrome.runtime.onMessage.addListener来添加一个message监听器，request就是上面sendMessage的第二个参数，通过action的不同调用不同的方法。&lt;/p&gt;
+
+&lt;p&gt;按照上面的实现，我们发现只有刷新页面的时候生效，切换tab后就无效了，这时候就要用上了background了，在manifest里面添加background和权限:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;permissions&amp;quot;: [&amp;quot;tabs&amp;quot;,&amp;quot;&amp;lt;all_urls&amp;gt;&amp;quot;,&amp;quot;activeTab&amp;quot;],
+&amp;quot;background&amp;quot;:{
+    &amp;quot;scripts&amp;quot;:[&amp;quot;background.js&amp;quot;]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;background的js能够运行在浏览器后台，background.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;chrome.tabs.onActivated.addListener(function(activeInfo) {
+    chrome.tabs.get(activeInfo.tabId, function (tab) {
+        chrome.tabs.executeScript(tab.id,{file:&amp;quot;load.js&amp;quot;});
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里绑定了onActivated事件，即在浏览器切换时会出发，把load.js加载进来，同时我们也要修改load.js避免重复加载,load.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;if(!window.loaded){
+    console.log(&amp;quot;loaded&amp;quot;);
+    window.loaded = true;
+
+    function showTitle(){
+        alert(document.title);
+    }
+
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {  
+        var action = request.action;
+        switch(action){
+            case &amp;quot;showTitle&amp;quot;:
+                showTitle();
+                break;
+            default:
+                console.log(&amp;quot;unknown action&amp;quot;);
+                break;
+        }
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的代码放在github上：&lt;a href=&#34;https://github.com/homfen/chrome-extension-demo&#34;&gt;https://github.com/homfen/chrome-extension-demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;所以开发一个Chrome插件也不难。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

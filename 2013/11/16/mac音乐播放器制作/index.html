@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Welcome to my blog.">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.17" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="http://blog.homfen.me/css/sourcecodepro.css" type="text/css">
+<link rel="stylesheet" href="//static.homfen.me/plugin/highlight.js/dist/styles/solarized-dark.css">
+<link rel="stylesheet" href="http://blog.homfen.me/css/style.css" type="text/css">
+<link rel="alternate" href="http://blog.homfen.me/index.xml" type="application/rss+xml" title="Homfen&#39;s blog">
+<title>Mac音乐播放器制作 - Homfen&#39;s blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="http://blog.homfen.me/">[Homfen&#39;s blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2013-11-16">November 16, 2013</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://blog.homfen.me/categories/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF">其他技术</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="http://blog.homfen.me/tags/mac">Mac</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Mac音乐播放器制作</h1>
+  <section class="body" itemprop="articleBody">
+    <p>这是大学毕业设计做的东西，论文加编码差不多1个月时间，实际上编码时间只有两个星期不到，由于当时已经在实习，所以就请了一个星期的假，用来写代码，一个星期下来，基本上功能就已经完成，之后一个星期便是利用下班后的时间做点小的修改，然后就答辩了，所以说，毕业设计也不难，只要你用心去做。 由于之前看过一点Objective-C的基础知识，所以就直接开始编程了。虽然看看书，语法掌握很简单，但是还是有很多东西是不懂的，就拿Xcode来说吧，和VS就完全不同了。不懂的时候，就查官方文档，苹果的文档还是很不错的，上面的列子可以直接下载下来运行。</p>
+
+<p>播放器使用Novocaine的解码库，所以只能播放mp3文件，除此之外还具有简单的播放控制、列表管理、歌词显示功能，歌词部分调用了<a href="http://geci.me" target="_blank">歌词迷</a>api。</p>
+
+<p><img src="/images/post/player.jpg"/></p>
+
+<p>右下角最右边的歌词按钮，旁边的是换歌词的按钮(因为歌词搜出了会有不对的情况)，只是粗略的实现了基本功能，应该还存在一些bug。</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; update: 2016.5.2&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<p>最近发现在10.11系统下很多功能都不能用了，所以就修了下bug，顺便重构了部分代码。</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; update: 2016.6.19&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<p>未连接网络检测，歌词功能完善及bug修复</p>
+
+<p><a href="http://pan.baidu.com/s/1geD09vP" target="_blank">点击下载</a></p>
+  </section>
+  <section class="body" style="margin-top: 2rem;">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'http:\/\/blog.homfen.me\/2013\/11\/16/Mac音乐播放器制作';
+        this.page.identifier = 'Mac音乐播放器制作';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//homfensblog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+  <span class="copyright">&copy; <script>document.write((new Date()).getFullYear())</script> Homfen&#39;s blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script src="//static.homfen.me/plugin/highlight.js/dist/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?ea23518b0514a7b24922188359137040";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>
+

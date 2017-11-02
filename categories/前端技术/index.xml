@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Immutable和JavaScript</title>
+      <link>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</link>
+      <pubDate>Sat, 26 Mar 2016 23:12:08 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</guid>
+      <description>&lt;p&gt;原文：&lt;a href=&#34;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&#34;&gt;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://jlongster.com/The-Seasonal-Blog-Redux&#34;&gt;不久前&lt;/a&gt;我简要的谈过最近一次对我的博客的重写，并承诺对我学到的具体知识进行更深入的讲解。今天我要聊聊JavaScript中的不可变数据结构，具体就是&lt;a href=&#34;https://github.com/facebook/immutable-js&#34;&gt;immutable.js&lt;/a&gt;和&lt;a href=&#34;https://github.com/rtfeldman/seamless-immutable&#34;&gt;seamless-immutable&lt;/a&gt;两个库。还有其他的库，但是不论你选择什么具体的库，概念上都是在持久化数据结构或拷贝原生JavaScript对象之间进行选择，并且比较两者各自突出的利弊。我也会讲一点&lt;a href=&#34;https://github.com/cognitect/transit-js&#34;&gt;transit-js&lt;/a&gt;，它可以很好的序列化任何东西。&lt;/p&gt;
+
+&lt;p&gt;本文并不适用于&lt;a href=&#34;https://github.com/rackt/redux&#34;&gt;Redux&lt;/a&gt;，我会讲不可变数据结构的一般用法，但是会提出具体在Redux中使用时的一些看法。在Redux中，你有一个单独的应用状态对象并且对它进行不可变更新，有很多方法可以完成，各有利弊。我将在下面探索。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;关于Redux要思考的一件事是怎么合并&lt;a href=&#34;http://rackt.github.io/redux/docs/basics/Reducers.html&#34;&gt;reducer&lt;/a&gt;形成单一应用的状态原子性，Redux提供的默认方法（*combineReducers*）假设你要合并多个值到一个JavaScript对象中去。例如，如果你真想把它们合并进一个*Immutable.js*对象，你需要自己写一个*combineReducers*去实现。这是必要的，如果你需要序列化你的应用状态，并且假设它整个都是由*Immutable.js*对象组成。&lt;/p&gt;
+
+&lt;p&gt;本文大部分适用于一般情况下在JavaScript中使用不可变对象。因为你这是在和默认的语法做对抗，所以有时候会有点不舒服，感觉你歪曲了类型。然而，取决于你的应用和设置，你可以得到很多。&lt;/p&gt;
+
+&lt;p&gt;目前有个&lt;a href=&#34;https://github.com/sebmarkbage/ecmascript-immutable-data-structures&#34;&gt;提议&lt;/a&gt;，将不可变数据结构加到原生JavaScript中去，但是并不清楚是否会成功。目前来说，在JavaScript中使用它当然会解决很多问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;immutable-js&#34;&gt;Immutable.js&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/facebook/immutable-js&#34;&gt;Immutable.js&lt;/a&gt;出自Facebook，是最流行的不可变数据结构的实现之一。它从头开始实现了完全的持久化数据结构，通过使用像&lt;a href=&#34;https://en.wikipedia.org/wiki/Trie&#34;&gt;tries&lt;/a&gt;这样的先进技术来实现结构共享。所有的更新操作都会返回新的值，但是在内部结构是共享的，来减少内存占用(和垃圾回收的失效)。这意味着如果你向容器中添加1000个元素，它实际上不会创建一个1001长度的容器。内部很有可能只有很少的对象被分配了空间。&lt;/p&gt;
+
+&lt;p&gt;在结构上数据共享的进步，很大程度上得益于Okasaki开创性的&lt;a href=&#34;http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504&#34;&gt;工作&lt;/a&gt;，几乎打破了不可变对象在实际应用中太慢的神话。事实上，令人惊讶的是有多少应用可以通过它变得更快。大量地读取和复制数据（来避免被其他人修改）的应用将很容易从不可变数据结构中获益（简单的一次性拷贝一个巨大的数组会削弱相比可变数据结构赢得的性能优势）。&lt;/p&gt;
+
+&lt;p&gt;另一个例子是&lt;a href=&#34;https://github.com/clojure/clojurescript&#34;&gt;ClojureScript&lt;/a&gt;如何发现当UI背后使用不可变数据结构时带来的巨大的性能提升。如果你正在改变一个UI，你通常会有很多非必须的DOM操作（因为你不知道值是否需要更新）。React会把DOM更新降到最低，但是你仍然需要通过生成虚拟DOM才能做到。当组件不可变时，你甚至不需要生成一个虚拟DOM，一个简单的===相等检查就能知道是否需要更新。&lt;/p&gt;
+
+&lt;p&gt;这么好的事是真的吗？你也许会不解为什么我们不一直使用不可变数据结构，这样就能享受它带来的好处。好吧，一些语言确实如此，比如ClojureScript和Elm。在JavaScript中是比较困难的，因为语言默认并不提供，所以我们需要权衡得失。&lt;/p&gt;
+
+&lt;h3 id=&#34;空间和垃圾回收效率&#34;&gt;空间和垃圾回收效率&lt;/h3&gt;
+
+&lt;p&gt;我已经解释过为什么结构上的共享使得不可变数据结构更高效。对数组的特定位置进行修改的开销是巨大的，但是使用不可变的开销并不大。如果你想避免修改，这无疑会胜过拷贝对象。&lt;/p&gt;
+
+&lt;p&gt;在Redux中，不可变是强制的，你不会在屏幕上看到任何更新除非你返回一个新的值。这有很大的优势，所以如果你想避免复制，你可以看看*Immutable.js*。&lt;/p&gt;
+
+&lt;h3 id=&#34;引用和值相等&#34;&gt;引用和值相等&lt;/h3&gt;
+
+&lt;p&gt;假设你保存了一个对象的引用，称为*obj1*，之后，*obj2*也引用了这个对象。如果你没有改过他们，那么*obj1 === obj2*成立，你能肯定什么都没有改变。在很多框架中，像React，允许你很容易就实现有效的优化。&lt;/p&gt;
+
+&lt;p&gt;这叫“引用相等”，你可以简单的比较两个指针。但还有一种概念叫“值相等”，你需要执行*obj1.equals(obj2)*来检查两个对象是否相等。在不可变的情况下，你可以把对象当做值来对待。&lt;/p&gt;
+
+&lt;p&gt;在ClojureScript中一切都是值，甚至默认的相等操作符也执行值相等检查（像 === 一样）。如果你真想比较两个实例你会使用*identical*？检查不可变数据结构的值相等的好处是通常会比全递归扫描更高效（如果它共享结构就能跳过这步）。&lt;/p&gt;
+
+&lt;p&gt;所以它在哪里执行呢？我已经解释了它如何优化React是无关紧要的。只需要实现*shouldComponentUpdate*方法并检查是否状态相同，如果相同就跳过渲染。&lt;/p&gt;
+
+&lt;p&gt;我也发现在Immutable.js中使用 === 并不会执行值相等检查（显然，你不能重写JavaScript的语义），Immutable.js在判断对象相等时使用值相等。在它想检查是否对象相同的任何地方，它使用值相等。&lt;/p&gt;
+
+&lt;p&gt;比如，一个Map对象的键会被值相等检查。这意味着我可以把对象保存在Map中，之后只需要用和它有相同结构的另一个对象来恢复它：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let map = Immutable.Map();
+map = map.set(Immutable.Map({ x: 1, y: 2}), &amp;quot;value&amp;quot;);
+map.get(Immutable.Map({ x: 1, y: 2 })); // -&amp;gt; &amp;quot;value&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这将带来很多很棒的体验。比如，假设我有一个函数，用一个包含了一些指定属性的对象作为参数来查询，并从服务器拉取数据：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function runQuery(query) {
+    // pseudo-code: somehow pass the query to the server and 
+    // get some results
+    return fetchFromServer(serialize(query));
+}
+
+runQuery(Immutable.Map({
+    select: &#39;users&#39;,
+    filter: { name: &#39;James&#39; }
+}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果我想实现查询的缓存，这就是所有我需要做的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let queryCache = Immutable.Map();
+function runQuery(query) {
+    let cached = queryCache.get(query);
+    if(cached) {
+        return cached;
+    } else {
+        let results = fetchFromServer(serialize(query));
+        queryCache = queryCache.set(query, results);
+        return results;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我可以把查询对象当做一个值对待，用它作为键名来保存结果。之后如果执行相同的查询，我会取出缓存的结果，即使查询对象和之前的不是同一个实例。&lt;/p&gt;
+
+&lt;p&gt;值相等简化了各种各样的模式。事实上，我在&lt;a href=&#34;https://github.com/jlongster/blog/blob/master/src/reducers/posts.js#L34&#34;&gt;查询文章&lt;/a&gt;的时候用了完全一样的技术。&lt;/p&gt;
+
+&lt;h3 id=&#34;javascript互操作&#34;&gt;JavaScript互操作&lt;/h3&gt;
+
+&lt;p&gt;大部分反对Immutable.js数据结构的原因是他们可以实现以上所有的特性：它们不是普通的JavaScript数据结构。一个Immutable.js对象和JavaScript对象是完全不同的。&lt;/p&gt;
+
+&lt;p&gt;这意味着你必须用*map.get(&amp;ldquo;property&amp;rdquo;)*代替*map.property*，用*array.get(0)*代替*array[0]*。与此同时Immutable.js的体积也变得很大，为了提供兼容JavaScript的API，即使它们是不同的（push方法必须返回一个新的数组而非在原有的实例上修改）。你能感觉到它对JavaScript默认的重度可修改的语义的反抗。&lt;/p&gt;
+
+&lt;p&gt;让事情变得复杂的原因是，除非你足够的hardcore，从头开始写一个项目，否则你就不能到处使用Immutable对象。你根本不需要为了小函数的本地对象而使用Immutable。即使你使用immutable创建每一个单独的对象、数组等，你还是不得不和使用普通JavaScript对象、数组等的第三方库一起使用。&lt;/p&gt;
+
+&lt;p&gt;结果是你永远不知道你在使用的是JavaScript对象还是Immutable对象。这使函数推导变得更难。虽然你清楚在哪里使用了Immutable对象，你仍然通过系统把它们传递到了不清楚的地方。&lt;/p&gt;
+
+&lt;p&gt;事实上，有时候你可能会尝试将一个普通JavaScript对象放入Immutable Map中。别这么做，将immutable和mutable混合放在一个对象里将会变得很混乱。&lt;/p&gt;
+
+&lt;p&gt;我看到这个问题的两个解决方案：
+&amp;gt;1. *使用像TypeScript或Flow这样的类型系统*。这会消除记忆immutable数据结构在系统中流动的位置带来的精神负担。很多项目使用这一招，因为它需要换一个完全不同的代码风格。
+&amp;gt;
+&amp;gt;2. *隐藏数据结构的细节*。如果你正在你系统的特定部分使用Immutable.js，不要让外部的任何东西直接访问这部分数据结构。一个好案例就是Redux和它的单一原子性应用状态。如果应用状态是一个Immutable.js对象，不要强制React组件去直接使用Immutable.js API。
+&amp;gt;
+&amp;gt; 有两种方法可以做到。第一种是使用像&lt;a href=&#34;https://github.com/gozala/typed-immutable&#34;&gt;typed-immutable&lt;/a&gt;的库，真正给你的对象分配不同的类型。通过创建记录，可以得到对Immutable.js对象的更小的封装，能提供*map.property*接口，通过由记录的类型提供的字段来定义读取器。所有从这个对象中读取的东西都可以看做普通的JavaScript对象。你仍然不能修改它，但是这就是你实际你想贯彻的。
+&amp;gt;
+&amp;gt; 第二个方法是提供一种方式去查询对象并且强制在读取的时候执行查询。这个方法并不总奏效，但是在Redux中却很好用，因为我们有一个单一应用状态对象，而且你如论如何都想隐藏数据布局。强制所有的React组件都依赖数据布局意味着你永远不能修改应用状态的实际结构，但这有可能是你以后想做的。
+&amp;gt;
+&amp;gt; 对于对象的深度查询，查询不必做成复杂的引擎，它们可以仅仅是简单的函数。我还没有在我的博客中这么做，但是想象下我有一大堆像*getPost(state, id)*和*getEditorSettings(state)*这样的函数。这些都使用以状态作为参数的函数，并返回我查询的东西。我不再关心它存在于状态对象的哪个位置，唯一的问题是我可能还是要返回一个immutable对象，所以我可能需要先将它强制转为JavaScript对象，或者使用上面说到的记录类型。&lt;/p&gt;
+
+&lt;p&gt;归结起来：JavaScript互操作是一个真正的话题。绝对不要从immutable对象内部引用JavaScript对象。&lt;a href=&#34;https://github.com/gozala/typed-immutable&#34;&gt;typed-immutable&lt;/a&gt;提供的记录类型可以使互操作问题减轻，还有其他的好处，像在修改或读取非法字段时的抛错。最后，如果你使用Redux，不要让任何东西依赖应用状态结构，因为你之后会修改它。把数据定义抽象出来，解决了immutable的互操作问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;seamless-immutable&#34;&gt;seamless-immutable&lt;/h3&gt;
+
+&lt;p&gt;还有另一种方式保证不可变。&lt;a href=&#34;https://github.com/rtfeldman/seamless-immutable&#34;&gt;seamless-immutable&lt;/a&gt;是一个使用普通JavaScript对象的更轻量级解决方案。它没有定义新的数据结构，*所以没有结构共享*，这意味着你在更新它们时必须自己手动拷贝对象（然而你仅需要一份浅拷贝）。你不会获得任何以上提到的性能或值相等的好处。&lt;/p&gt;
+
+&lt;p&gt;然而，作为回报你获得了出色的JavaScript互操作。所有的数据结构都是原本的JavaScript数据结构。不同之处在于seamless-immutable在它们上面调用了*Object.freeze*，所以你不能修改它们（在严格模式，也是ES6模块默认使用的模式，在修改时会抛出错误）。此外，它还加了一些方法来帮助更新数据，比如merge方法会返回包含合并进去的属性的新的对象。&lt;/p&gt;
+
+&lt;p&gt;它少了一些更新不可变数据结构的通用方法，比如Immutable.js的&lt;a href=&#34;http://facebook.github.io/immutable-js/docs/#/Map/setIn&#34;&gt;setIn&lt;/a&gt;和&lt;a href=&#34;http://facebook.github.io/immutable-js/docs/#/Map/mergeIn&#34;&gt;mergeIn&lt;/a&gt;，它们可以方便的更新深层嵌套的对象。但是这些很容易实现，我计划贡献这些到这个项目中去[2]。&lt;/p&gt;
+
+&lt;p&gt;混合immutable和mutable对象是不可能的。seamless-immutable封装一个实例的时候会将所有对象深度转换为immutable，而且所有新加入的值都会自动被封装。实际上Immutable.js的工作原理非常类似，*Immutable.fromJs*和像*ojb.merge*的各种方法都会深度转换。但是*obj.set*不会自动转换，所以你可以保存任何你喜欢的数据类型。这在seamless-immutable中是不可能的，所以你不能随意的保存一个mutable JavaScript对象。&lt;/p&gt;
+
+&lt;p&gt;在我看来，我希望所有的库都保持原样，它们有不同的目标。比如，由于seamless-immutable的自动强制转换，你不能保存任何它不知道的类型，所以它不能很好的和任何其他库一起工作，除了基本的内建类型（事实上，你现在甚至不支持Map和Set类型）。&lt;/p&gt;
+
+&lt;p&gt;seamless-immutable是一个有很大优势的小库，但是同时也失去了一些不可变数据结构的基本优势，像值相等。如果JavaScript的互操作是你最关心的，它是一个极好的解决方案。如果你正在迁移现有代码，它是特别有用的，因为你可以慢慢的修改成immutable，而不需要重写每一块涉及到的代码。&lt;/p&gt;
+
+&lt;h3 id=&#34;缺失的环节-用transit-js序列化&#34;&gt;缺失的环节：用transit-js序列化&lt;/h3&gt;
+
+&lt;p&gt;最后一个需要考虑的是：序列化。如果你正在使用自定义数据类型，*JSON.stringify*就不再适用了。但是*JSON.stringify*从来就不是最好的，你甚至不能用它来序列化ES6的*Map*或*Set*实例。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/cognitect/transit-js&#34;&gt;transit-js&lt;/a&gt;是&lt;a href=&#34;https://twitter.com/swannodette&#34;&gt;David Nolen&lt;/a&gt;写的一个很好的库，它定义了一种可扩展的数据传输结构。默认情况下你不能把*Map*或*Set*实例放到它里面，但是关键的区别是，你可以很容易地把自定义类型重写为transit理解的类型。事实上，所有用来序列化和反序列化整套Immutable.js类型的&lt;a href=&#34;https://github.com/glenjamin/transit-immutable-js/blob/master/index.js&#34;&gt;代码&lt;/a&gt;不到150行。&lt;/p&gt;
+
+&lt;p&gt;transit在如何编码类型方面也更聪明。比如，它知道到Map的键名可能会是复杂的类型，所以能很容易序列化*Map*类型。使用&lt;a href=&#34;https://github.com/glenjamin/transit-immutable-js&#34;&gt;transit-immutable-js&lt;/a&gt;库去支持Immutable.js，现在我们可以做这样的事：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let { toJSON, fromJSON } = require(&#39;transit-immutable-js&#39;);
+
+let map = Immutable.Map();
+map = map.set(Immutable.Map({ x: 1, y: 2 }), &amp;quot;value&amp;quot;);
+
+let newMap = fromJSON(toJSON(map));
+newMap.get(Immutable.Map({ x: 1, y: 2 })); // -&amp;gt; &amp;quot;value&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;值相等和transit轻松愉快的Map序列化结合起来，让我们可以用一种简单的方式在任何系统中使用这些模式。事实上，我的博客在服务器端渲染时会构建查询缓存，然后把缓存发送给客户端，所以这个缓存仍然是完全完好的。这个使用场景使我切换到transit的主要原因。&lt;/p&gt;
+
+&lt;p&gt;它也可以很容易的序列化ES6 Map类型，但是如果你有复杂的键名，我不确定你会在没有值相等的情况下如何使用未序列化的实例。仍然可能会有一些使用场景要把它们序列化。&lt;/p&gt;
+
+&lt;p&gt;如果你有混合的普通JavaScript对象和Immutable.js对象，用transit序列化会保持所有这些类型的完整性。虽然我建议不要将它们混合，transit会将每个对象反序列化到合适的类型，而使用原生的JSON意味着你需要在反序列化时将所有的东西都转换为Immutable.js类型（假设你使用*Immutable.fromJS(JSON.parse(str))*）。&lt;/p&gt;
+
+&lt;p&gt;你可以扩展transit去支持序列化任何对象，像Date实例或任何自定义类型。可以从&lt;a href=&#34;https://github.com/cognitect/transit-format&#34;&gt;transit-format&lt;/a&gt;查看它如何编码类型。&lt;/p&gt;
+
+&lt;p&gt;如果你使用seamless-immutable，你已经限制自己只能使用JavaScript（和JSON兼容）的内建类型，所以你只能使用*JSON.stringify*。虽然简单，但是你丢失了扩展性，全靠自己权衡。&lt;/p&gt;
+
+&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
+
+&lt;p&gt;不可变提供了很多好处，但是是否需要Immutable.js提供的全面的持久化数据结构，取决于应用。我怀疑很多应用都使用友好复制对象，因为它们大部分都很小。&lt;/p&gt;
+
+&lt;p&gt;虽然你在一些特征性的成本上轻松地赢了，但是不仅API有很多限制，你还不能使用值相等。此外，之后如果你发现你需要结构共享的性能，再想切换到Immutable.js就比较困难了。&lt;/p&gt;
+
+&lt;p&gt;通常我会建议将数据结构细节对外部隐藏起来，特别是使用Immutable.js的时候。试着遵循JavaScript对象和数组的默认规则，比如*obj.property*和*arr[0]*。应该可以很快用这些接口把Immutable对象封装起来，但是需要更多的研究。&lt;/p&gt;
+
+&lt;p&gt;Redux中尤为如此，在那些你未来想要改变应用状态如何构成的地方。即使你的应用状态是普通JavaScript对象，你也有这个问题。无论你如何改变应用状态的内部，外部用户不应该察觉。提供一种方式查询应用状态结构，至少可以通过把数据访问函数抽象出来。像&lt;a href=&#34;https://github.com/facebook/relay&#34;&gt;Relay&lt;/a&gt;和&lt;a href=&#34;http://netflix.github.io/falcor/&#34;&gt;Falcor&lt;/a&gt;这样的更复杂的解决方案解决了这个问题，因为查询语言是访问数据的默认方式。&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://swannodette.github.io/mori/&#34;&gt;mori&lt;/a&gt;是另外一个持久化数据结构的实现（ClojureScript的分支），&lt;a href=&#34;https://facebook.github.io/react/docs/update.html&#34;&gt;React&amp;rsquo;s immutability helpers&lt;/a&gt;是另外一个库，它简单地浅拷贝原生JavaScript对象&lt;/p&gt;
+
+&lt;p&gt;[2] 我对所有我知道的和不可变有关的类库做了一个&lt;a href=&#34;https://gist.github.com/jlongster/bce43d9be633da55053f&#34;&gt;概要&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Snap.svg</title>
+      <link>http://blog.homfen.me/2015/03/10/snap.svg/</link>
+      <pubDate>Tue, 10 Mar 2015 13:41:29 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/03/10/snap.svg/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
+
+&lt;p&gt;svg是建立交互性、并有分辨率无关的矢量图形的好方法，而snap.svg可以像jQuery操作Dom一样方便的操作svg图形。&lt;/p&gt;
+
+&lt;p&gt;Snap.svg的官方网站是&lt;a href=&#34;http://snapsvg.io/&#34; target=&#34;_blank&#34;&gt;snapsvg.io&lt;/a&gt;,个人感觉上的文档写得并不好，随便把所有的方法都列出来了，但是很多看完并不知道如何使用，参数应该怎么传，所以下面就介绍一下一些常用的方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;画简单的图形：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Paper.rect(x, y, width, height, [rx], [ry]);//画矩形，x、y坐标，width、height长宽，rx、ry为圆角
+Paper.circle(x, y, r);//画圆，x、y圆心坐标，r半径
+Paper.ellipse(x, y, rx, ry);//画椭圆，x、y圆心坐标，rx、ry焦半径
+Paper.image(src, x, y, width, height);//插入图片，src路径，x、y坐标，width、height长宽
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不规则图形可以使用Paper.path，命令和原生svg几乎相同，多了一个R：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;//M = moveto
+//L = lineto
+//H = horizontal lineto
+//V = vertical lineto
+//C = curveto
+//S = smooth curveto
+//Q = quadratic Belzier curve
+//T = smooth quadratic Belzier curveto
+//A = elliptical Arc
+//Z = closepath
+//R = catmull-rom curveto
+Paper.path(&amp;quot;M0,0C0,20,20,20,20,0&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;平移、旋转、缩放，有两种方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var m = new Snap.Matrix();
+m.scale(1.2,1.2);//x、y方向都放大1.2倍
+m.translate(10,10);//平移到(10,10)
+m.rotate(10,20,20);//绕着(20,20)顺时针旋转10度
+element.transform(m);//将变换应用到element上
+
+element.transform(&amp;quot;s1.2,1.2t10,10r10,20,20&amp;quot;);//直接用字符串形式
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;样式设置：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;element.attr({fill:&amp;quot;black&amp;quot;});
+element.node.style.fontSize = &amp;quot;20px&amp;quot;;//有些样式可以通过node.style来设置
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加事件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;element.click(function(){});
+element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可以用node    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;简单的介绍就到这里，其他内容请参考官方文档（不懂的只能百度谷歌了）。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SVG初印象</title>
+      <link>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
+      <pubDate>Thu, 05 Feb 2015 00:06:52 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/svg-logo.png&#34;--&gt;
+
+&lt;p&gt;虽然很早就知道SVG，不过那时对SVG的认识就是用来制作图表的，例如折线图、柱状图之类的里面见的比较多，而如今，SVG已经发展了很多，丰富的api和类库让它可以完成很多有趣的事，可以说和canvas很相似。&lt;/p&gt;
+
+&lt;p&gt;SVG全称可缩放矢量图形（英语：Scalable Vector Graphics）是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。SVG 1.1在 2003 年一月，被确立为W3C标准。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;位图是由点构成的，矢量图则是由一些形状元素构成。放大位图可以看到一颗颗的像素点，而放大矢量图看到的仍然是形状。SVG属于矢量图，因此能够无级缩放，而不会导致马赛克，矢量图的优势非常明显。其他的优点，还有：图像文件可读，易于修改和编辑；与现有技术可以互动融合；可以方便的创建文字索引，从而实现基于内容的图像搜索；支持多种滤镜和特殊效果，在不改变图像内容的前提下可以实现位图格式中类似文字阴影的效果；可以用来动态生成图形；与JPEG和GIF图像比起来，尺寸更小，且可压缩性更强。&lt;/p&gt;
+
+&lt;p&gt;SVG还有两个子集，SVGB、SVGT，SVGB主要目标是为掌上电脑等高端移动设备提供矢量图形显示格式，SVGT主要目标是为手机等低端移动设备提供矢量图形显示格式。&lt;/p&gt;
+
+&lt;p&gt;SVG主要支持3种显示对象：矢量显示对象（基本矢量显示对象包括矩形、圆、椭圆、多边形、直线、任意曲线等），嵌入式外部图像（包括PNG、JPEG、SVG等），文字对象。&lt;/p&gt;
+
+&lt;p&gt;SVGZ文件是指经过gzip算法压缩后的SVG文件，压缩会缩减文件尺寸，所以加载会更快。&lt;/p&gt;
+
+&lt;p&gt;目前各浏览器对SVG基本功能的支持都比较好，除了IE8及之前的浏览器，其他都能完全或部分支持。
+&lt;img src=&#34;http://blog.homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;SVG图形制作工具有Adobe Illustrator、Visio以及CorelDRAW等，开源的工具有Scribus、Karbon14、Inkscape以及Sodipodi等。&lt;/p&gt;
+
+&lt;p&gt;SVG 文件可通过以下标签嵌入 HTML 文档：embed 、object 或者iframe。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;embed src=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot; type=&amp;quot;image/svg+xml&amp;quot; pluginspage=&amp;quot;http://www.adobe.com/svg/viewer/install/&amp;quot; /&amp;gt;
+&amp;lt;object data=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot; type=&amp;quot;image/svg+xml&amp;quot; codebase=&amp;quot;http://www.adobe.com/svg/viewer/install/&amp;quot; /&amp;gt;
+&amp;lt;iframe src=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SVG的预定义元素有：矩形 rect，圆形 circle，椭圆 ellipse，直线line，折线polyline，多边形polygon，路径 path。这些元素的属性有坐标x、y，长宽width、height，半径r，圆心cx、cy，圆角rx、ry，样式style等，根据元素不同有略微不同。fill用来设置填充颜色，stroke用来设置边框。&lt;/p&gt;
+
+&lt;p&gt;SVG有很多种滤镜，不过滤镜标签filter必须定义在defs标签中，使用的时候通过滤镜的id来调用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;filter id=&amp;quot;Gaussian_Blur&amp;quot;&amp;gt;
+        &amp;lt;feGaussianBlur in=&amp;quot;SourceGraphic&amp;quot; stdDeviation=&amp;quot;3&amp;quot; /&amp;gt;
+    &amp;lt;/filter&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SVG渐变包括线性渐变和放射性渐变。线性渐变通过两个坐标（x1,y1,x2,y2）来确定渐变的方向，坐标值用百分比的形式表示。在线性渐变标签linearGradient内通过stop标签来定义渐变点，颜色会从一个渐变点的颜色渐变到另一个渐变点的颜色。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;linearGradient id=&amp;quot;orange_red&amp;quot; x1=&amp;quot;0%&amp;quot; y1=&amp;quot;0%&amp;quot; x2=&amp;quot;100%&amp;quot; y2=&amp;quot;0%&amp;quot;&amp;gt;
+        &amp;lt;stop offset=&amp;quot;0%&amp;quot; style=&amp;quot;stop-color:rgb(255,255,0);stop-opacity:1&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;50%&amp;quot; style=&amp;quot;stop-color:rgb(255,0,255);stop-opacity:1&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;100%&amp;quot; style=&amp;quot;stop-color:rgb(255,0,0);stop-opacity:1&amp;quot;/&amp;gt;
+    &amp;lt;/linearGradient&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;放射性渐变，通过两个坐标（cx、cy，fx、fy）来定义外圈和内圈的圆心位置，r来定义外圈的半径，也有stop标签。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;radialGradient id=&amp;quot;grey_blue&amp;quot; cx=&amp;quot;50%&amp;quot; cy=&amp;quot;50%&amp;quot; r=&amp;quot;50%&amp;quot; fx=&amp;quot;50%&amp;quot; fy=&amp;quot;50%&amp;quot;&amp;gt;
+        &amp;lt;stop offset=&amp;quot;0%&amp;quot; style=&amp;quot;stop-color:rgb(200,200,200);stop-opacity:0&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;100%&amp;quot; style=&amp;quot;stop-color:rgb(0,0,255);stop-opacity:1&amp;quot;/&amp;gt;
+    &amp;lt;/radialGradient&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>apply &amp; call</title>
+      <link>http://blog.homfen.me/2014/12/10/apply--call/</link>
+      <pubDate>Wed, 10 Dec 2014 00:20:58 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/12/10/apply--call/</guid>
+      <description>&lt;p&gt;每个Function对象都有apply和call方法，所以可以直接在函数名之后通过“.apply()”或者“.call()”的方式来调用，功能就是在指定的作用域下执行函数。&lt;/p&gt;
+
+&lt;p&gt;apply和call的参数有所不同。apply接受2个参数，第一个参数为要在其作用域中执行函数的对象（object），我们也可以说，将原函数绑定为object的方法(f)，不过这个方法不会一直存在，apply执行结束就会消失，所以不能通过object.f()来调用。第二个参数为一个数组，数组中的元素都是原函数的参数。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a,b,c){//假设f有三个形参a,b,c
+    ...
+}
+//通过这种形式在context的作用域下调用f，a、b、c为参数
+f.apply(context,[a,b,c]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;call的参数没有数量限制，第一个参数和apply一样，从第二个开始往后的所有参数，都作为原函数的参数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a,b,c){//假设f有三个形参a,b,c
+    ...
+}
+//通过这种形式在context的作用域下调用f，a、b、c为参数
+f.call(context,a,b,c);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再来说说第一个参数，函数讲在这个对象的作用域下执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a){
+    this.value = a;//在正常情况下调用，this指向window对象
+}
+var o = {};
+f.call(o,&amp;quot;a&amp;quot;);//这种情况下，this指向对象o，所以会为o添加一个值为&amp;quot;a&amp;quot;的value属性。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;来看一个复杂点的例子，这个例子来自《编写高质量的代码：改善Javascript程序的188个建议》。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function r(x){
+    return x;
+}
+function f(x){
+    x[0] = x[0]+&amp;quot;&amp;gt;&amp;quot;;
+    return x;
+}
+function o(){
+    var temp = r;
+    r = function(){
+        return temp.apply(this,f(arguments));
+    }
+}
+function a(){
+    o();
+    console.log(r(&amp;quot;=&amp;quot;));
+}
+for(var i=0;i&amp;lt;10;i++){
+    a();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这段代码的执行结果如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;第一遍看的时候可能有点晕，没关系，来分析下。首先，关键的一点，这里用到了闭包，在函数o内部，r是一个全局变量，temp是一个局部变量，把temp指向r指向的函数，之后把r指向另一个新建的函数，在这个函数内部又调用了temp。所以，只要这个r没有被删除，局部变量temp就会一直留在内存中。明白了这一点，接下去理解起来就轻松多了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;//第一次执行o
+temp = function(x){//temp1
+    return x;
+}
+r = function(){
+    //相当于return f(arguments);
+    return temp1.apply(this,f(arguments));
+}
+
+//第二次执行o
+temp = function(){//temp2
+    return temp1.apply(this,f(arguments));
+}
+r = function(){
+    //相当于return f(f(arguments));
+    return temp2.apply(this,f(arguments));
+}
+
+...
+
+//第十次就是 f(f(f(f(f(f(f(f(f(f(&amp;quot;=&amp;quot;))))))))))
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Polymer Demo - Simple Google Map</title>
+      <link>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</link>
+      <pubDate>Wed, 22 Oct 2014 01:34:13 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/3178265018.png&#34;--&gt;
+
+&lt;p&gt;最近在学习Polymer，感觉还挺有意思的。主要涉及的是Web Components方面的知识，将所需的组件封装起来，并保存到单独的html文件中，使用的时候只要将这个html文件通过link标签导入进来（像css样式一样），在适当的位置编写相应的自定义标签，就可以了，非常的方便。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;先讲一下Polymer创建自定义元素的方法，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;polymer-element name=&amp;quot;my-counter&amp;quot; attributes=&amp;quot;counter&amp;quot;&amp;gt;
+    &amp;lt;template&amp;gt;
+        &amp;lt;style&amp;gt; /*...*/ &amp;lt;/style&amp;gt;
+        &amp;lt;div id=&amp;quot;label&amp;quot;&amp;gt;&amp;lt;content&amp;gt;&amp;lt;/content&amp;gt;&amp;lt;/div&amp;gt;
+        Value: &amp;lt;span id=&amp;quot;counterVal&amp;quot;&amp;gt;{{counter}}&amp;lt;/span&amp;gt;&amp;lt;br&amp;gt;
+        &amp;lt;button on-tap=&amp;quot;{{increment}}&amp;quot;&amp;gt;Increment&amp;lt;/button&amp;gt;
+    &amp;lt;/template&amp;gt;
+    &amp;lt;script&amp;gt;
+        Polymer({
+            counter: 0, // Default value
+            counterChanged: function() {
+                this.$.counterVal.classList.add(&#39;highlight&#39;);
+            },
+            increment: function() {
+                this.counter++;
+            }
+        });
+    &amp;lt;/script&amp;gt;
+&amp;lt;/polymer-element&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;格式就是这样，最外面是polymer-element标签，name属性指定的就是自定义标签的名字，attributes指定的是这个自定义标签的属性。template里面有style标签，和其他一些元素，style中为元素的样式。接下来是script标签，里面就一个函数Polymer，参数是一个对象，用于初始化这个标签，counter对应标签的counter属性，并给它赋值，上面template中可以通过{{counter}}访问这个counter值，类似，{{increment}}就是这里的increment方法，那前面的“on-tap”的意思就是当这个button被按下时执行increment方法。&lt;/p&gt;
+
+&lt;p&gt;下面是一个小Demo，谷歌地图，通过输入经纬度来显示。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;template&amp;gt;
+    &amp;lt;style&amp;gt;
+    #map{
+        border:1px solid black;
+    }
+    &amp;lt;/style&amp;gt;
+    &amp;lt;paper-input id=&amp;quot;longtitude&amp;quot; label=&amp;quot;Enter longtitude&amp;quot;&amp;gt;&amp;lt;/paper-input&amp;gt;
+    &amp;lt;paper-input id=&amp;quot;latitude&amp;quot; label=&amp;quot;Enter latitude&amp;quot;&amp;gt;&amp;lt;/paper-input&amp;gt;
+    &amp;lt;paper-button id=&amp;quot;getmap&amp;quot; on-tap=&amp;quot;{{showMap}}&amp;quot; raisedbutton=&amp;quot;&amp;quot; class=&amp;quot;colored&amp;quot; label=&amp;quot;go&amp;quot; role=&amp;quot;button&amp;quot; tabindex=&amp;quot;0&amp;quot; aria-label=&amp;quot;go&amp;quot;&amp;gt;&amp;lt;/paper-button&amp;gt;
+    &amp;lt;div id=&amp;quot;map&amp;quot; style=&#39;width:{{width}}px;height:{{height}}px;&#39;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;模版很简单，两个paper-input，一个paper-button，一个div用于展示地图。这里用到的paper-input、paper-button，要通过link标签导入进来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Polymer({
+    width: 500, 
+    height:500,
+    showMap: function() {
+        var lon = this.$.longtitude.value;
+        var lat = this.$.latitude.value;
+        var map = this.$.map;
+        var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(lat, lon)
+        };
+        new google.maps.Map(map,mapOptions);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;width和height指定地图的长宽，通过this.$.[id]来取得模版中的元素，获取了输入的经纬度就可以调用谷歌的方法，在id为map的div中展示地图了。&lt;/p&gt;
+
+&lt;p&gt;在首页，我们需要做的就是把刚刚写的html文件通过link标签import进来，不过在此之前别忘了把platform.js导入进来，这样自定义标签才能正常工作。编写一个刚刚创建的标签，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;my-gmap width=&amp;quot;415&amp;quot; height=&amp;quot;415&amp;quot;&amp;gt;&amp;lt;/my-gmap&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里设置了width和height属性，就是地图区域的长宽。看一下最终的效果：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1217217468.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1757598925.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;源码地址：&lt;a href=&#34;https://github.com/homfen/polymer-demo-google-map&#34;&gt;https://github.com/homfen/polymer-demo-google-map&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Polymer中文社区：&lt;a href=&#34;http://polymerchina.org&#34;&gt;http://polymerchina.org&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XMLHttpRequest</title>
+      <link>http://blog.homfen.me/2014/08/22/xmlhttprequest/</link>
+      <pubDate>Fri, 22 Aug 2014 12:53:04 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/08/22/xmlhttprequest/</guid>
+      <description>&lt;p&gt;XMLHTTP是一组API函数集，可被JavaScript、JScript、VBScript以及其它web浏览器内嵌的脚本语言调用，通过HTTP在浏览器和web服务器之间收发XML或其它数据。XMLHTTP最大的好处在于可以动态地更新网页，它无需重新从服务器读取整个网页，也不需要安装额外的插件。该技术被许多网站使用，以实现快速响应的动态网页应用。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;ActiveXObject用于兼容IE，XDomainRequest用于兼容IE8。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData(type, url, postData, callback) {
+    var xmlrequest, isXDomain = false;
+    if (window.XDomainRequest) {
+        xmlrequest = new XDomainRequest();
+        isXDomain = true;
+    } else if (window.ActiveXObject) {
+        try {
+            xmlrequest = new ActiveXObject(&amp;quot;Msxml3.XMLHTTP&amp;quot;);
+        } catch (e1) {
+            try {
+                xmlrequest = new ActiveXObject(&amp;quot;Msxml2.XMLHTTP.6.0&amp;quot;);
+            }
+            catch (e2) {
+                try {
+                    xmlrequest = new ActiveXObject(&amp;quot;Msxml2.XMLHTTP.3.0&amp;quot;);
+                }
+                catch (e3) {
+                    try {
+                        xmlrequest = new ActiveXObject(&amp;quot;Microsoft.XMLHTTP&amp;quot;);
+                    }
+                    catch (e4) {
+                        alertMsg(&amp;quot;您的浏览器版本太低，请升级浏览器或更换浏览器。&amp;quot;);
+                        return;
+                    }
+                }
+            }
+        }
+    } else if (window.XMLHttpRequest) {
+        xmlrequest = new XMLHttpRequest();
+    } else {
+        alertMsg(&amp;quot;您的浏览器版本太低，请升级浏览器或更换浏览器。&amp;quot;);
+        return;
+    }
+    xmlrequest.onreadystatechange = function () {
+        if (xmlrequest.readyState == 4) {
+            if (xmlrequest.status == 0 || xmlrequest.status == 200) {
+                callback(xmlrequest.responseText);
+            }
+        }
+    }
+    xmlrequest.open(type, url, true);
+    if (!isXDomain) {
+         xmlrequest.setRequestHeader(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/x-www-form-urlencoded&amp;quot;);
+    }
+    xmlrequest.send(postData);
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Duff&#39;s Device（达夫设备）</title>
+      <link>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
+      <pubDate>Sat, 14 Jun 2014 16:42:18 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
+      <description>&lt;p&gt;达夫设备算法可以减少循环的迭代次数，如果循环迭代次数少于1000次，你可能只能看到它与普通循环相比微不足道的性能提升，但当循环迭代次数超过1000次，达夫设备的效率将显著提升。&lt;br /&gt;
+原理十分简单，将总的迭代次数以8为基数进行分组，一次迭代执行8次操作，最后再处理余下的小于8次的迭代，所以迭代的总次数由原来的count次变为count/8[+1]次。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;第一种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items,process){
+    var iterations = Math.floor(items.length / 8), 
+        startAt = items.length % 8,
+        i = 0;
+    do {
+        switch(startAt){
+            case 0: process(items[i++]); 
+            case 7: process(items[i++]); 
+            case 6: process(items[i++]); 
+            case 5: process(items[i++]); 
+            case 4: process(items[i++]); 
+            case 3: process(items[i++]); 
+            case 2: process(items[i++]); 
+            case 1: process(items[i++]);
+        }
+        startAt = 0;
+    } while (--iterations);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items,process){
+    var i = items.length-1;
+    var ii = items.length % 8; 
+    while(ii--){
+        process(items[i--]); 
+    }
+    var iii = Math.floor(items.length / 8); 
+    while(iii--){
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第三种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items, process){
+    var idx = 0;
+    var len = items.length;
+    var itr = len / 8;
+    while (itr--) {
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+    }
+    itr = len % 8;
+    while (itr--) {
+        process(items[idx++]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chrome插件开发</title>
+      <link>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 07 Apr 2014 20:22:55 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/Chrome-Web-Store.jpg&#34;--&gt;
+
+&lt;p&gt;关于谷歌浏览器插件开发的详细内容，可以访问谷歌的文档“&lt;a href=&#34;https://developer.chrome.com/extensions/getstarted&#34; target=&#34;_blank&#34;&gt;Getting Start&lt;/a&gt;”，本文主要介绍下简单Chrome插件开发。&lt;/p&gt;
+
+&lt;p&gt;简单的Chrome插件包含三个文件，一个manifest.json是配置文件，一个js文件，一个图标。
+来看一下manifest.json中的基本配置：&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;test&amp;quot;,//插件名称
+    &amp;quot;description&amp;quot;: &amp;quot;alert&amp;quot;,//插件描述
+    &amp;quot;version&amp;quot;: &amp;quot;0.0.1&amp;quot;,
+    &amp;quot;permissions&amp;quot;: [&amp;quot;tabs&amp;quot;,&amp;quot;&amp;lt;all_urls&amp;gt;&amp;quot;],
+    &amp;quot;browser_action&amp;quot;: {
+        &amp;quot;default_icon&amp;quot;: &amp;quot;test.png&amp;quot;//插件图标，xx.jpg
+    },
+    &amp;quot;content_scripts&amp;quot;: [{
+        &amp;quot;matches&amp;quot;: [
+            &amp;quot;http://*/*&amp;quot;,
+            &amp;quot;https://*/*&amp;quot;
+        ],
+        &amp;quot;js&amp;quot;: [&amp;quot;load.js&amp;quot;],//js文件
+        &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot;//在页面加载完时运行
+    }], 
+    &amp;quot;manifest_version&amp;quot;:2
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在load.js中可以对加载完的页面做任何操作&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;编写完成后，把这三个文件放在一个文件夹下，打开Chrome设置，选择左侧Extensions，点击“Load unpacked extension&amp;hellip;”按钮将前面的文件夹加载进来即可。&lt;/p&gt;
+
+&lt;p&gt;到这里，我们的插件只能在进入页面的时候进行一些操作，但是少了关键的菜单，下面就来弄个菜单。&lt;/p&gt;
+
+&lt;p&gt;第一步，修改manifest，在browser_action中添加一项：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;browser_action&amp;quot;: {
+    &amp;quot;default_icon&amp;quot;: &amp;quot;test.png&amp;quot;,
+    &amp;quot;default_popup&amp;quot;:&amp;quot;popup.html&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其实菜单也是一个html文件，所以是通过html、css来定义它的样式，通过绑定事件来实现功能，popup.html:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta http-equiv=&amp;quot;Content-Type&amp;quot; content=&amp;quot;text/html; charset=utf-8&amp;quot; /&amp;gt;
+        &amp;lt;title&amp;gt;alert&amp;lt;/title&amp;gt;
+        &amp;lt;style&amp;gt;
+        div{
+            width:100px;
+            height:20px;
+            line-height:20px;
+            text-align:center;
+            font-family: sans-serif;
+            font-size:0.8em;
+            background:#F3F3F3;
+            margin-bottom:4px;
+            cursor:pointer;
+            border-radius:3px;
+        }
+        div:hover{
+            background:#CCCCCC;
+        }
+        &amp;lt;/style&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;div id=&amp;quot;alert&amp;quot;&amp;gt;alert&amp;lt;/div&amp;gt;
+        &amp;lt;script src=&amp;quot;popup.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;样式比较简单，只有一个div，也就是一个按钮，通过引入popup.js文件来绑定事件，这里必须通过script标签引入外部的js，而不能写內联js，不然会报错。popup.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;document.querySelector(&amp;quot;#alert&amp;quot;).addEventListener(&amp;quot;click&amp;quot;,function(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {action: &amp;quot;showTitle&amp;quot;}, function(response) {
+            console.log(&amp;quot;ok&amp;quot;);
+        });
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;给alert绑定了click事件，内部的实现比较有意思，通过chrome.tabs.query来获取当前的tab，然后通过chrome.tabs.sendMessage给当前tab发送消息，popup和content之间就是通过message来通信的，为什么要搞的这么麻烦呢，因为popup和content是相互隔离的，是两个独立的页面，当然不能在一个页面调用另一个页面的方法。load.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function showTitle(){
+    alert(document.title);
+}
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {  
+    var action = request.action;
+    switch(action){
+        case &amp;quot;showTitle&amp;quot;:
+            showTitle();
+            break;
+        default:
+            console.log(&amp;quot;unknown action&amp;quot;);
+            break;
+    }
+});
+
+console.log(&amp;quot;loaded&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;load.js里面，通过chrome.runtime.onMessage.addListener来添加一个message监听器，request就是上面sendMessage的第二个参数，通过action的不同调用不同的方法。&lt;/p&gt;
+
+&lt;p&gt;按照上面的实现，我们发现只有刷新页面的时候生效，切换tab后就无效了，这时候就要用上了background了，在manifest里面添加background和权限:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;permissions&amp;quot;: [&amp;quot;tabs&amp;quot;,&amp;quot;&amp;lt;all_urls&amp;gt;&amp;quot;,&amp;quot;activeTab&amp;quot;],
+&amp;quot;background&amp;quot;:{
+    &amp;quot;scripts&amp;quot;:[&amp;quot;background.js&amp;quot;]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;background的js能够运行在浏览器后台，background.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;chrome.tabs.onActivated.addListener(function(activeInfo) {
+    chrome.tabs.get(activeInfo.tabId, function (tab) {
+        chrome.tabs.executeScript(tab.id,{file:&amp;quot;load.js&amp;quot;});
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里绑定了onActivated事件，即在浏览器切换时会出发，把load.js加载进来，同时我们也要修改load.js避免重复加载,load.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;if(!window.loaded){
+    console.log(&amp;quot;loaded&amp;quot;);
+    window.loaded = true;
+
+    function showTitle(){
+        alert(document.title);
+    }
+
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {  
+        var action = request.action;
+        switch(action){
+            case &amp;quot;showTitle&amp;quot;:
+                showTitle();
+                break;
+            default:
+                console.log(&amp;quot;unknown action&amp;quot;);
+                break;
+        }
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的代码放在github上：&lt;a href=&#34;https://github.com/homfen/chrome-extension-demo&#34;&gt;https://github.com/homfen/chrome-extension-demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;所以开发一个Chrome插件也不难。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Responsive Web Design</title>
+      <link>http://blog.homfen.me/2013/12/20/responsive-web-design/</link>
+      <pubDate>Fri, 20 Dec 2013 00:28:22 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2013/12/20/responsive-web-design/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
+
+&lt;p&gt;自适应网页设计（英语：Responsive web design，通常缩写为RWD）是一种网页设计的技术做法，该设计可使网站在多种浏览设备（从桌面电脑显示器到移动电话或其他移动产品设备）上阅读和导航，同时减少缩放、平移和滚动。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CSS3 Media Query&lt;/strong&gt;（媒介查询）插件，这是响应式设计的核心。它根据条件告诉浏览器如何为指定视图宽度渲染页面。媒介查询的数量可以根据需要添加。其目的在于为指定的视图宽度设定不同的CSS规则，来实现不同的布局。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@media only screen and (max-width: 640px){……}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Meta&lt;/strong&gt;标签，因为大多数移动浏览器将HTML页面放大为宽的视图（viewport）以符合屏幕分辨率，这可以使用视图的meta标签来进行重置。在部分加入这个meta标签。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width; initial-scale=1.0; maximum-scale=1.0;&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

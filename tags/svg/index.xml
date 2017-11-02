@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/svg/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/svg/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Snap.svg</title>
+      <link>http://blog.homfen.me/2015/03/10/snap.svg/</link>
+      <pubDate>Tue, 10 Mar 2015 13:41:29 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/03/10/snap.svg/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
+
+&lt;p&gt;svg是建立交互性、并有分辨率无关的矢量图形的好方法，而snap.svg可以像jQuery操作Dom一样方便的操作svg图形。&lt;/p&gt;
+
+&lt;p&gt;Snap.svg的官方网站是&lt;a href=&#34;http://snapsvg.io/&#34; target=&#34;_blank&#34;&gt;snapsvg.io&lt;/a&gt;,个人感觉上的文档写得并不好，随便把所有的方法都列出来了，但是很多看完并不知道如何使用，参数应该怎么传，所以下面就介绍一下一些常用的方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;画简单的图形：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Paper.rect(x, y, width, height, [rx], [ry]);//画矩形，x、y坐标，width、height长宽，rx、ry为圆角
+Paper.circle(x, y, r);//画圆，x、y圆心坐标，r半径
+Paper.ellipse(x, y, rx, ry);//画椭圆，x、y圆心坐标，rx、ry焦半径
+Paper.image(src, x, y, width, height);//插入图片，src路径，x、y坐标，width、height长宽
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不规则图形可以使用Paper.path，命令和原生svg几乎相同，多了一个R：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;//M = moveto
+//L = lineto
+//H = horizontal lineto
+//V = vertical lineto
+//C = curveto
+//S = smooth curveto
+//Q = quadratic Belzier curve
+//T = smooth quadratic Belzier curveto
+//A = elliptical Arc
+//Z = closepath
+//R = catmull-rom curveto
+Paper.path(&amp;quot;M0,0C0,20,20,20,20,0&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;平移、旋转、缩放，有两种方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var m = new Snap.Matrix();
+m.scale(1.2,1.2);//x、y方向都放大1.2倍
+m.translate(10,10);//平移到(10,10)
+m.rotate(10,20,20);//绕着(20,20)顺时针旋转10度
+element.transform(m);//将变换应用到element上
+
+element.transform(&amp;quot;s1.2,1.2t10,10r10,20,20&amp;quot;);//直接用字符串形式
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;样式设置：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;element.attr({fill:&amp;quot;black&amp;quot;});
+element.node.style.fontSize = &amp;quot;20px&amp;quot;;//有些样式可以通过node.style来设置
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加事件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;element.click(function(){});
+element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可以用node    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;简单的介绍就到这里，其他内容请参考官方文档（不懂的只能百度谷歌了）。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SVG初印象</title>
+      <link>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
+      <pubDate>Thu, 05 Feb 2015 00:06:52 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/svg-logo.png&#34;--&gt;
+
+&lt;p&gt;虽然很早就知道SVG，不过那时对SVG的认识就是用来制作图表的，例如折线图、柱状图之类的里面见的比较多，而如今，SVG已经发展了很多，丰富的api和类库让它可以完成很多有趣的事，可以说和canvas很相似。&lt;/p&gt;
+
+&lt;p&gt;SVG全称可缩放矢量图形（英语：Scalable Vector Graphics）是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。SVG 1.1在 2003 年一月，被确立为W3C标准。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;位图是由点构成的，矢量图则是由一些形状元素构成。放大位图可以看到一颗颗的像素点，而放大矢量图看到的仍然是形状。SVG属于矢量图，因此能够无级缩放，而不会导致马赛克，矢量图的优势非常明显。其他的优点，还有：图像文件可读，易于修改和编辑；与现有技术可以互动融合；可以方便的创建文字索引，从而实现基于内容的图像搜索；支持多种滤镜和特殊效果，在不改变图像内容的前提下可以实现位图格式中类似文字阴影的效果；可以用来动态生成图形；与JPEG和GIF图像比起来，尺寸更小，且可压缩性更强。&lt;/p&gt;
+
+&lt;p&gt;SVG还有两个子集，SVGB、SVGT，SVGB主要目标是为掌上电脑等高端移动设备提供矢量图形显示格式，SVGT主要目标是为手机等低端移动设备提供矢量图形显示格式。&lt;/p&gt;
+
+&lt;p&gt;SVG主要支持3种显示对象：矢量显示对象（基本矢量显示对象包括矩形、圆、椭圆、多边形、直线、任意曲线等），嵌入式外部图像（包括PNG、JPEG、SVG等），文字对象。&lt;/p&gt;
+
+&lt;p&gt;SVGZ文件是指经过gzip算法压缩后的SVG文件，压缩会缩减文件尺寸，所以加载会更快。&lt;/p&gt;
+
+&lt;p&gt;目前各浏览器对SVG基本功能的支持都比较好，除了IE8及之前的浏览器，其他都能完全或部分支持。
+&lt;img src=&#34;http://blog.homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;SVG图形制作工具有Adobe Illustrator、Visio以及CorelDRAW等，开源的工具有Scribus、Karbon14、Inkscape以及Sodipodi等。&lt;/p&gt;
+
+&lt;p&gt;SVG 文件可通过以下标签嵌入 HTML 文档：embed 、object 或者iframe。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;embed src=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot; type=&amp;quot;image/svg+xml&amp;quot; pluginspage=&amp;quot;http://www.adobe.com/svg/viewer/install/&amp;quot; /&amp;gt;
+&amp;lt;object data=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot; type=&amp;quot;image/svg+xml&amp;quot; codebase=&amp;quot;http://www.adobe.com/svg/viewer/install/&amp;quot; /&amp;gt;
+&amp;lt;iframe src=&amp;quot;rect.svg&amp;quot; width=&amp;quot;300&amp;quot; height=&amp;quot;100&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SVG的预定义元素有：矩形 rect，圆形 circle，椭圆 ellipse，直线line，折线polyline，多边形polygon，路径 path。这些元素的属性有坐标x、y，长宽width、height，半径r，圆心cx、cy，圆角rx、ry，样式style等，根据元素不同有略微不同。fill用来设置填充颜色，stroke用来设置边框。&lt;/p&gt;
+
+&lt;p&gt;SVG有很多种滤镜，不过滤镜标签filter必须定义在defs标签中，使用的时候通过滤镜的id来调用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;filter id=&amp;quot;Gaussian_Blur&amp;quot;&amp;gt;
+        &amp;lt;feGaussianBlur in=&amp;quot;SourceGraphic&amp;quot; stdDeviation=&amp;quot;3&amp;quot; /&amp;gt;
+    &amp;lt;/filter&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SVG渐变包括线性渐变和放射性渐变。线性渐变通过两个坐标（x1,y1,x2,y2）来确定渐变的方向，坐标值用百分比的形式表示。在线性渐变标签linearGradient内通过stop标签来定义渐变点，颜色会从一个渐变点的颜色渐变到另一个渐变点的颜色。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;linearGradient id=&amp;quot;orange_red&amp;quot; x1=&amp;quot;0%&amp;quot; y1=&amp;quot;0%&amp;quot; x2=&amp;quot;100%&amp;quot; y2=&amp;quot;0%&amp;quot;&amp;gt;
+        &amp;lt;stop offset=&amp;quot;0%&amp;quot; style=&amp;quot;stop-color:rgb(255,255,0);stop-opacity:1&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;50%&amp;quot; style=&amp;quot;stop-color:rgb(255,0,255);stop-opacity:1&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;100%&amp;quot; style=&amp;quot;stop-color:rgb(255,0,0);stop-opacity:1&amp;quot;/&amp;gt;
+    &amp;lt;/linearGradient&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;放射性渐变，通过两个坐标（cx、cy，fx、fy）来定义外圈和内圈的圆心位置，r来定义外圈的半径，也有stop标签。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;defs&amp;gt;
+    &amp;lt;radialGradient id=&amp;quot;grey_blue&amp;quot; cx=&amp;quot;50%&amp;quot; cy=&amp;quot;50%&amp;quot; r=&amp;quot;50%&amp;quot; fx=&amp;quot;50%&amp;quot; fy=&amp;quot;50%&amp;quot;&amp;gt;
+        &amp;lt;stop offset=&amp;quot;0%&amp;quot; style=&amp;quot;stop-color:rgb(200,200,200);stop-opacity:0&amp;quot;/&amp;gt;
+        &amp;lt;stop offset=&amp;quot;100%&amp;quot; style=&amp;quot;stop-color:rgb(0,0,255);stop-opacity:1&amp;quot;/&amp;gt;
+    &amp;lt;/radialGradient&amp;gt;
+&amp;lt;/defs&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

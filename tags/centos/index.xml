@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/centos/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>vsftpd</title>
+      <link>http://blog.homfen.me/2016/10/14/vsftpd/</link>
+      <pubDate>Fri, 14 Oct 2016 23:02:08 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2016/10/14/vsftpd/</guid>
+      <description>&lt;p&gt;在CentOS上安装vsftpd：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum install vsftpd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装完毕后修改&lt;code&gt;/etc/vsftpd/vsftpd.conf&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;anonymous_enable=NO
+local_enable=YES
+chroot_local_user=YES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;添加用户并指定目录，设置密码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;useradd –s /sbin/nologin –d /var/www/ username
+passwd username
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改目录的权限：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod -R 777 /var/www
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重启vsftpd服务:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl restart vsftpd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;FileZilla中的设置：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;端口默认&lt;/li&gt;
+&lt;li&gt;加密选择“只使用普通FTP（不安全）”&lt;/li&gt;
+&lt;li&gt;登录类型选择“正常”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;over，现在能用FileZilla上传文件到服务器了&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Welcome to my blog.">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.17" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="http://blog.homfen.me/css/sourcecodepro.css" type="text/css">
+<link rel="stylesheet" href="//static.homfen.me/plugin/highlight.js/dist/styles/solarized-dark.css">
+<link rel="stylesheet" href="http://blog.homfen.me/css/style.css" type="text/css">
+<link rel="alternate" href="http://blog.homfen.me/index.xml" type="application/rss+xml" title="Homfen&#39;s blog">
+<title>Polymer Demo - Simple Google Map - Homfen&#39;s blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="http://blog.homfen.me/">[Homfen&#39;s blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2014-10-22">October 22, 2014</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://blog.homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF">前端技术</a>
+
+    </span>
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="http://blog.homfen.me/tags/polymer">Polymer</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Polymer Demo - Simple Google Map</h1>
+  <section class="body" itemprop="articleBody">
+    <!--img src="/images/post/3178265018.png"-->
+
+<p>最近在学习Polymer，感觉还挺有意思的。主要涉及的是Web Components方面的知识，将所需的组件封装起来，并保存到单独的html文件中，使用的时候只要将这个html文件通过link标签导入进来（像css样式一样），在适当的位置编写相应的自定义标签，就可以了，非常的方便。</p>
+
+<p></p>
+
+<p>先讲一下Polymer创建自定义元素的方法，</p>
+
+<pre><code class="language-html">&lt;polymer-element name=&quot;my-counter&quot; attributes=&quot;counter&quot;&gt;
+    &lt;template&gt;
+        &lt;style&gt; /*...*/ &lt;/style&gt;
+        &lt;div id=&quot;label&quot;&gt;&lt;content&gt;&lt;/content&gt;&lt;/div&gt;
+        Value: &lt;span id=&quot;counterVal&quot;&gt;{{counter}}&lt;/span&gt;&lt;br&gt;
+        &lt;button on-tap=&quot;{{increment}}&quot;&gt;Increment&lt;/button&gt;
+    &lt;/template&gt;
+    &lt;script&gt;
+        Polymer({
+            counter: 0, // Default value
+            counterChanged: function() {
+                this.$.counterVal.classList.add('highlight');
+            },
+            increment: function() {
+                this.counter++;
+            }
+        });
+    &lt;/script&gt;
+&lt;/polymer-element&gt;
+</code></pre>
+
+<p>格式就是这样，最外面是polymer-element标签，name属性指定的就是自定义标签的名字，attributes指定的是这个自定义标签的属性。template里面有style标签，和其他一些元素，style中为元素的样式。接下来是script标签，里面就一个函数Polymer，参数是一个对象，用于初始化这个标签，counter对应标签的counter属性，并给它赋值，上面template中可以通过{{counter}}访问这个counter值，类似，{{increment}}就是这里的increment方法，那前面的“on-tap”的意思就是当这个button被按下时执行increment方法。</p>
+
+<p>下面是一个小Demo，谷歌地图，通过输入经纬度来显示。</p>
+
+<pre><code class="language-html">&lt;template&gt;
+    &lt;style&gt;
+    #map{
+        border:1px solid black;
+    }
+    &lt;/style&gt;
+    &lt;paper-input id=&quot;longtitude&quot; label=&quot;Enter longtitude&quot;&gt;&lt;/paper-input&gt;
+    &lt;paper-input id=&quot;latitude&quot; label=&quot;Enter latitude&quot;&gt;&lt;/paper-input&gt;
+    &lt;paper-button id=&quot;getmap&quot; on-tap=&quot;{{showMap}}&quot; raisedbutton=&quot;&quot; class=&quot;colored&quot; label=&quot;go&quot; role=&quot;button&quot; tabindex=&quot;0&quot; aria-label=&quot;go&quot;&gt;&lt;/paper-button&gt;
+    &lt;div id=&quot;map&quot; style='width:{{width}}px;height:{{height}}px;'&gt;&lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>模版很简单，两个paper-input，一个paper-button，一个div用于展示地图。这里用到的paper-input、paper-button，要通过link标签导入进来。</p>
+
+<pre><code class="language-javascript">Polymer({
+    width: 500, 
+    height:500,
+    showMap: function() {
+        var lon = this.$.longtitude.value;
+        var lat = this.$.latitude.value;
+        var map = this.$.map;
+        var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(lat, lon)
+        };
+        new google.maps.Map(map,mapOptions);
+    }
+});
+</code></pre>
+
+<p>width和height指定地图的长宽，通过this.$.[id]来取得模版中的元素，获取了输入的经纬度就可以调用谷歌的方法，在id为map的div中展示地图了。</p>
+
+<p>在首页，我们需要做的就是把刚刚写的html文件通过link标签import进来，不过在此之前别忘了把platform.js导入进来，这样自定义标签才能正常工作。编写一个刚刚创建的标签，</p>
+
+<pre><code class="language-html">&lt;my-gmap width=&quot;415&quot; height=&quot;415&quot;&gt;&lt;/my-gmap&gt;
+</code></pre>
+
+<p>这里设置了width和height属性，就是地图区域的长宽。看一下最终的效果：</p>
+
+<p><img src="/images/post/1217217468.png"></p>
+
+<p><img src="/images/post/1757598925.png"></p>
+
+<p>源码地址：<a href="https://github.com/homfen/polymer-demo-google-map">https://github.com/homfen/polymer-demo-google-map</a></p>
+
+<p>Polymer中文社区：<a href="http://polymerchina.org">http://polymerchina.org</a></p>
+  </section>
+  <section class="body" style="margin-top: 2rem;">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'http:\/\/blog.homfen.me\/2014\/10\/22/Polymer Demo - Simple Google Map';
+        this.page.identifier = 'Polymer Demo - Simple Google Map';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//homfensblog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+  <span class="copyright">&copy; <script>document.write((new Date()).getFullYear())</script> Homfen&#39;s blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script src="//static.homfen.me/plugin/highlight.js/dist/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?ea23518b0514a7b24922188359137040";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>
+

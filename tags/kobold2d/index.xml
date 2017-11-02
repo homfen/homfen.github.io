@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/kobold2d/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/kobold2d/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Kobold2D and XCode5</title>
+      <link>http://blog.homfen.me/2014/02/19/kobold2d-and-xcode5/</link>
+      <pubDate>Wed, 19 Feb 2014 02:08:52 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/02/19/kobold2d-and-xcode5/</guid>
+      <description>&lt;p&gt;用Xcode新建Kobold2D项目时，报错：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int newSize = [(SingleFileDownloader*)[_sizeCheckers objectAtIndex: _curFile] contentLength];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Multiple methods named &amp;lsquo;contentLength&amp;rsquo;&lt;/p&gt;
+
+&lt;p&gt;解决方法，打开终端，输入：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;curl https://s3.amazonaws.com/mgwu-misc/xcode5-kobold.sh | sh
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/shell/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>oh-my-zsh安装配置</title>
+      <link>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 22 Jan 2014 23:21:32 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/oh-my-zsh.png&#34;--&gt;
+
+&lt;p&gt;看了mac君关于zsh的文章“终极Shell”(&lt;a href=&#34;http://macshuo.com/?p=676&#34; target=&#34;_blank&#34;&gt;查看原文&lt;/a&gt;)，一步步操作下来 设置默认使用zsh&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;chsh -s /bin/zsh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;然后安装「oh my zsh」&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置.zshrc 用vim打开.zshrc文件，找到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;# Example aliases
+# alias zshconfig=&amp;quot;mate ~/.zshrc&amp;quot;
+# alias ohmyzsh=&amp;quot;mate ~/.oh-my-zsh&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在后面添加自己的配置即可 补充一下，如何设置TextMate的环境变量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;sudo ln -s /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就可以在终端中用mate命令打开TextMate了&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

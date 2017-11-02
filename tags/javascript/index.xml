@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/tags/javascript/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>apply &amp; call</title>
+      <link>http://blog.homfen.me/2014/12/10/apply--call/</link>
+      <pubDate>Wed, 10 Dec 2014 00:20:58 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/12/10/apply--call/</guid>
+      <description>&lt;p&gt;每个Function对象都有apply和call方法，所以可以直接在函数名之后通过“.apply()”或者“.call()”的方式来调用，功能就是在指定的作用域下执行函数。&lt;/p&gt;
+
+&lt;p&gt;apply和call的参数有所不同。apply接受2个参数，第一个参数为要在其作用域中执行函数的对象（object），我们也可以说，将原函数绑定为object的方法(f)，不过这个方法不会一直存在，apply执行结束就会消失，所以不能通过object.f()来调用。第二个参数为一个数组，数组中的元素都是原函数的参数。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a,b,c){//假设f有三个形参a,b,c
+    ...
+}
+//通过这种形式在context的作用域下调用f，a、b、c为参数
+f.apply(context,[a,b,c]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;call的参数没有数量限制，第一个参数和apply一样，从第二个开始往后的所有参数，都作为原函数的参数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a,b,c){//假设f有三个形参a,b,c
+    ...
+}
+//通过这种形式在context的作用域下调用f，a、b、c为参数
+f.call(context,a,b,c);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再来说说第一个参数，函数讲在这个对象的作用域下执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(a){
+    this.value = a;//在正常情况下调用，this指向window对象
+}
+var o = {};
+f.call(o,&amp;quot;a&amp;quot;);//这种情况下，this指向对象o，所以会为o添加一个值为&amp;quot;a&amp;quot;的value属性。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;来看一个复杂点的例子，这个例子来自《编写高质量的代码：改善Javascript程序的188个建议》。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function r(x){
+    return x;
+}
+function f(x){
+    x[0] = x[0]+&amp;quot;&amp;gt;&amp;quot;;
+    return x;
+}
+function o(){
+    var temp = r;
+    r = function(){
+        return temp.apply(this,f(arguments));
+    }
+}
+function a(){
+    o();
+    console.log(r(&amp;quot;=&amp;quot;));
+}
+for(var i=0;i&amp;lt;10;i++){
+    a();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这段代码的执行结果如下图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;第一遍看的时候可能有点晕，没关系，来分析下。首先，关键的一点，这里用到了闭包，在函数o内部，r是一个全局变量，temp是一个局部变量，把temp指向r指向的函数，之后把r指向另一个新建的函数，在这个函数内部又调用了temp。所以，只要这个r没有被删除，局部变量temp就会一直留在内存中。明白了这一点，接下去理解起来就轻松多了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;//第一次执行o
+temp = function(x){//temp1
+    return x;
+}
+r = function(){
+    //相当于return f(arguments);
+    return temp1.apply(this,f(arguments));
+}
+
+//第二次执行o
+temp = function(){//temp2
+    return temp1.apply(this,f(arguments));
+}
+r = function(){
+    //相当于return f(f(arguments));
+    return temp2.apply(this,f(arguments));
+}
+
+...
+
+//第十次就是 f(f(f(f(f(f(f(f(f(f(&amp;quot;=&amp;quot;))))))))))
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>XMLHttpRequest</title>
+      <link>http://blog.homfen.me/2014/08/22/xmlhttprequest/</link>
+      <pubDate>Fri, 22 Aug 2014 12:53:04 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/08/22/xmlhttprequest/</guid>
+      <description>&lt;p&gt;XMLHTTP是一组API函数集，可被JavaScript、JScript、VBScript以及其它web浏览器内嵌的脚本语言调用，通过HTTP在浏览器和web服务器之间收发XML或其它数据。XMLHTTP最大的好处在于可以动态地更新网页，它无需重新从服务器读取整个网页，也不需要安装额外的插件。该技术被许多网站使用，以实现快速响应的动态网页应用。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;ActiveXObject用于兼容IE，XDomainRequest用于兼容IE8。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function getData(type, url, postData, callback) {
+    var xmlrequest, isXDomain = false;
+    if (window.XDomainRequest) {
+        xmlrequest = new XDomainRequest();
+        isXDomain = true;
+    } else if (window.ActiveXObject) {
+        try {
+            xmlrequest = new ActiveXObject(&amp;quot;Msxml3.XMLHTTP&amp;quot;);
+        } catch (e1) {
+            try {
+                xmlrequest = new ActiveXObject(&amp;quot;Msxml2.XMLHTTP.6.0&amp;quot;);
+            }
+            catch (e2) {
+                try {
+                    xmlrequest = new ActiveXObject(&amp;quot;Msxml2.XMLHTTP.3.0&amp;quot;);
+                }
+                catch (e3) {
+                    try {
+                        xmlrequest = new ActiveXObject(&amp;quot;Microsoft.XMLHTTP&amp;quot;);
+                    }
+                    catch (e4) {
+                        alertMsg(&amp;quot;您的浏览器版本太低，请升级浏览器或更换浏览器。&amp;quot;);
+                        return;
+                    }
+                }
+            }
+        }
+    } else if (window.XMLHttpRequest) {
+        xmlrequest = new XMLHttpRequest();
+    } else {
+        alertMsg(&amp;quot;您的浏览器版本太低，请升级浏览器或更换浏览器。&amp;quot;);
+        return;
+    }
+    xmlrequest.onreadystatechange = function () {
+        if (xmlrequest.readyState == 4) {
+            if (xmlrequest.status == 0 || xmlrequest.status == 200) {
+                callback(xmlrequest.responseText);
+            }
+        }
+    }
+    xmlrequest.open(type, url, true);
+    if (!isXDomain) {
+         xmlrequest.setRequestHeader(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/x-www-form-urlencoded&amp;quot;);
+    }
+    xmlrequest.send(postData);
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Duff&#39;s Device（达夫设备）</title>
+      <link>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
+      <pubDate>Sat, 14 Jun 2014 16:42:18 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
+      <description>&lt;p&gt;达夫设备算法可以减少循环的迭代次数，如果循环迭代次数少于1000次，你可能只能看到它与普通循环相比微不足道的性能提升，但当循环迭代次数超过1000次，达夫设备的效率将显著提升。&lt;br /&gt;
+原理十分简单，将总的迭代次数以8为基数进行分组，一次迭代执行8次操作，最后再处理余下的小于8次的迭代，所以迭代的总次数由原来的count次变为count/8[+1]次。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;第一种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items,process){
+    var iterations = Math.floor(items.length / 8), 
+        startAt = items.length % 8,
+        i = 0;
+    do {
+        switch(startAt){
+            case 0: process(items[i++]); 
+            case 7: process(items[i++]); 
+            case 6: process(items[i++]); 
+            case 5: process(items[i++]); 
+            case 4: process(items[i++]); 
+            case 3: process(items[i++]); 
+            case 2: process(items[i++]); 
+            case 1: process(items[i++]);
+        }
+        startAt = 0;
+    } while (--iterations);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items,process){
+    var i = items.length-1;
+    var ii = items.length % 8; 
+    while(ii--){
+        process(items[i--]); 
+    }
+    var iii = Math.floor(items.length / 8); 
+    while(iii--){
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]); 
+        process(items[i--]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第三种形式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function duffLoop(items, process){
+    var idx = 0;
+    var len = items.length;
+    var itr = len / 8;
+    while (itr--) {
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+        process(items[idx++]);
+    }
+    itr = len % 8;
+    while (itr--) {
+        process(items[idx++]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homfen&#39;s blog</title>
+    <link>http://blog.homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml</link>
+    <description>Recent content on Homfen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>vim中使用yui compressor</title>
+      <link>http://blog.homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</link>
+      <pubDate>Sun, 16 Aug 2015 23:36:44 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</guid>
+      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/201508171439741627750219.png&#34;--&gt;
+
+&lt;p&gt;对于JS和CSS来说，压缩是很常见的操作，通过压缩可以缩小文件尺寸，从而网页加快加载速度。yahoo的yui compressor是一个常用的压缩工具，所以本文就介绍下如何在vim中使用yui compressor。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;首先必须在电脑上安装yui compressor，可以使用npm安装：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;npm install -g yuicompressor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里使用全局安装，这样就能在任何目录中执行了，直接输入yuicompressor会输出帮助文档：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;YUICompressor Version: 2.4.8
+
+Usage: java -jar yuicompressor-2.4.8.jar [options] [input file]
+
+Global Options
+  -V, --version Print version information
+  -h, --help Displays this information
+  --type &amp;lt;js|css&amp;gt; Specifies the type of the input file
+  --charset &amp;lt;charset&amp;gt; Read the input file using &amp;lt;charset&amp;gt;
+  --line-break &amp;lt;column&amp;gt; Insert a line break after the specified column number
+  -v, --verbose Display informational messages and warnings
+  -o &amp;lt;file&amp;gt; Place the output into &amp;lt;file&amp;gt;. Defaults to stdout.
+                            Multiple files can be processed using the following syntax:
+                            java -jar yuicompressor.jar -o &#39;.css$:-min.css&#39; *.css
+                            java -jar yuicompressor.jar -o &#39;.js$:-min.js&#39; *.js
+
+JavaScript Options
+  --nomunge Minify only, do not obfuscate
+  --preserve-semi Preserve all semicolons
+  --disable-optimizations Disable all micro optimizations
+
+If no input file is specified, it defaults to stdin. In this case, the &#39;type&#39;
+option is required. Otherwise, the &#39;type&#39; option is required only if the input
+file extension is neither &#39;js&#39; nor &#39;css&#39;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可见可配置的选项也不多，type用于指定文件类型，charset指定编码格式，line-break用于在行字符超过特定值后进行换行，v用于输出提示消息和警告，o用于指定输出的文件名。对于JS还有3个配置，nomunge表示只进行精简而不进行混淆，preserve-semi用于保留所有的分号，disable-optimizations禁用所有内置的微优化。 接下来对vim进行配置，可以自己写一个插件，这里直接在.vimrc里面操作，添加一个Yui_compressor函数用于压缩：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;function Yui_compressor()
+    let nam = expand(&#39;%:t:r&#39;)
+    let ext = expand(&#39;%:e&#39;)
+    let fullnam = nam.&#39;.&#39;.ext
+    let mininam = nam.&#39;.min.&#39;.ext
+    cal system(&#39;yuicompressor -o &#39;.mininam.&#39; &#39;.fullnam)
+endfunction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里要注意，函数名的首字母必须大写，或者以“s”开头。定义了4个变量，nam是文件名，ext是后缀，fullname是全名（也可以用expand(&amp;lsquo;%:t&amp;rsquo;)），mininam是输出的文件名，最后调用yuicompressor命令。 到这里就差不多了，为了调用方便，我们给这个函数绑定一个快捷键，以ctrl+y为例，当然你也可以换成其他的，只要不冲突就好&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;map &amp;lt;C-y&amp;gt; :call Yui_compressor()&amp;lt;cr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大功告成，以后只要在打开文件是，按下ctrl+y就可以调用yuicompressor对当前文件进行压缩，在当前目录下会生成对应的&lt;em&gt;.min.css或者&lt;/em&gt;.min.js。&lt;/p&gt;
+
+&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;我是华丽的分割线&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-&lt;/p&gt;
+
+&lt;p&gt;发现一个挺好用的插件&lt;a href=&#34;https://github.com/othree/fecompressor.vim&#34;&gt;fecompressor.vim&lt;/a&gt;，之前在压缩css时有点错误，不过已经被我改过来了:D。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sublime Text Context Menu</title>
+      <link>http://blog.homfen.me/2015/01/19/sublime-text-context-menu/</link>
+      <pubDate>Mon, 19 Jan 2015 23:42:53 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/01/19/sublime-text-context-menu/</guid>
+      <description>&lt;p&gt;分享一下如何在Sublime中自定义右键菜单，以Git为例，我们知道Git有很多命令（Sync，Fetch，Show Log等），如果把这些命令加到右键菜单中，是否会方便一些呢？&lt;/p&gt;
+
+&lt;p&gt;打开Sublime，选择Tools-&amp;gt;New Plugin&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596331604040.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;在打开的文件中输入以下代码，TortoiseGit的安装地址自行修改：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import os ,subprocess, sublime_plugin
+class SyncCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        file_name=self.view.file_name()
+        path=file_name.split(&amp;quot;\\&amp;quot;)
+        path.pop()
+        current_directory=&amp;quot;\\&amp;quot;.join(path)
+        command= &amp;quot;cd &amp;quot;+current_directory+&amp;quot; &amp;amp; E:\\program\\TortoiseGit\\bin\\TortoiseGitProc /Command:sync&amp;quot;
+        proc = subprocess.Popen(command, shell=True)
+        os.kill(proc.pid)
+
+class FetchCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        file_name=self.view.file_name()
+        path=file_name.split(&amp;quot;\\&amp;quot;)
+        path.pop()
+        current_directory=&amp;quot;\\&amp;quot;.join(path)
+        command= &amp;quot;cd &amp;quot;+current_directory+&amp;quot; &amp;amp; E:\\program\\TortoiseGit\\bin\\TortoiseGitProc /Command:fetch&amp;quot;
+        proc = subprocess.Popen(command, shell=True)
+        os.kill(proc.pid)
+
+class ShowlogCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        file_name=self.view.file_name()
+        path=file_name.split(&amp;quot;\\&amp;quot;)
+        path.pop()
+        current_directory=&amp;quot;\\&amp;quot;.join(path)
+        command= &amp;quot;cd &amp;quot;+current_directory+&amp;quot; &amp;amp; E:\\program\\TortoiseGit\\bin\\TortoiseGitProc /Command:log&amp;quot;
+        proc = subprocess.Popen(command, shell=True)
+        os.kill(proc.pid)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;保存的时候，新建一个文件夹，并保存为.py格式。接下来，刚刚新建的文件夹中新建一个“Context.sublime-menu”的文件（注意后缀名），里面的内容比较简单，就是刚刚的那三个命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;[
+     { &amp;quot;command&amp;quot;: &amp;quot;sync&amp;quot; },
+     { &amp;quot;command&amp;quot;: &amp;quot;fetch&amp;quot; },
+     { &amp;quot;command&amp;quot;: &amp;quot;showlog&amp;quot; }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ok，重启Sublime，随便打开一个文件，右键，就有了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596331786864.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sublime Text Build System</title>
+      <link>http://blog.homfen.me/2015/01/07/sublime-text-build-system/</link>
+      <pubDate>Wed, 07 Jan 2015 03:08:12 +0000</pubDate>
+      
+      <guid>http://blog.homfen.me/2015/01/07/sublime-text-build-system/</guid>
+      <description>&lt;p&gt;前端的同学应该都使用过或听说过Sublime这个工具，大部分人可能只是用它来编写html、css、js代码，其实它还有一个强大的功能叫Build System，下面就通过一个例子来介绍一下这个功能。&lt;/p&gt;
+
+&lt;p&gt;使用VS的同学可能会知道一个工具叫“Microsoft Ajax Minifier”，就是用来压缩js和css文件的，通过减少文件的大小来提升网站的加载速度。使用Build System，也可以在Sublime中使用这个工具。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;首先在AjaxMin的&lt;a href=&#34;http://ajaxmin.codeplex.com/&#34; target=&#34;_blank&#34;&gt;官方网站&lt;/a&gt;下载这个工具，并安装。安装完毕后，将安装目录添加的系统的环境变量中。如果一切顺利，这时候打开控制台，并输入“ajaxmin”就会看到如下结果：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596556829319.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;第二步，打开Sublime，从菜单栏选择tools-&amp;gt;Build System-&amp;gt;New Build System&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596653139320.png&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;在打开的文件中输入以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;shell&amp;quot;:true,
+    &amp;quot;cmd&amp;quot;:[
+        &amp;quot;ajaxmin&amp;quot;, &amp;quot;-xml&amp;quot;, &amp;quot;files.xml&amp;quot;,&amp;quot;-out&amp;quot;,&amp;quot;..\\minjs&amp;quot;
+    ],
+    &amp;quot;encoding&amp;quot;:&amp;quot;GB2312&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;采用shell的方式，执行cmd中的命令，如果有多条命令，则每条命令之间用&amp;rdquo;&amp;;&amp;ldquo;隔开，这样就可以执行多条命令了，使用GB2312的编码。这句命令（ajaxmin -xml files.xml -out ..\minjs）的意思，就是按照files.xml提供的文件列表进行压缩，并把结果输出到上一级目录下的minjs目录中。更多命令可以查看ajaxmin的官方文档。&lt;/p&gt;
+
+&lt;p&gt;将文件保存为AjaxMin.sublime-build，重启Sublime，就可以看到我们自定义的Build System了：tools-&amp;gt;Build System-&amp;gt;AjaxMin。勾选它成为默认的build方案，这时候随意打开一个js文件，并在它的同级目录下新建一个files.xml文件，然后Ctrl+B快捷键进行编译，就可以在上级目录下发现多了一个minjs目录，里面有压缩过的js文件。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
