@@ -1,6 +1,6 @@
 $(function () {
     var player = $('#player');
-    var local = [
+    var songIds = [
         'hero',
         'fadingred',
         'tenniselbow',
@@ -8,9 +8,6 @@ $(function () {
         'lovethepastplaythefuture',
         'feelslikerain'
     ];
-    var playLocal = false;
-    var idsArr = [];
-    var songIds = idsArr[Math.floor(Math.random() * idsArr.length)] || [];
     var songsLen = songIds.length;
     var musicBtn = $('#music > a');
     var play = $('#play');
@@ -72,57 +69,31 @@ $(function () {
         playById(id);
     }
     function playById(id) {
-        showSongLoading();
-        if (playLocal) {
-            hideSongLoading();
-            player.attr('title', id);
-            player.attr('src', 'http://homfen.me/static/songs/' + id + '.mp3');
-            playSong();
-            return;
-        }
-        var promise = $.post('./api/music', {id: id});
-        promise.done(function (url) {
-            if (url !== '') {
-                hideSongLoading();
-                player.attr('title', id);
-                player.attr('src', url);
-                playSong();
-            }
-            else {
-                nextSong();
-            }
-        });
-        promise.fail(function () {
-            nextSong();
-        });
+        player.attr('title', id);
+        player.attr('src', 'http://homfen.me/static/songs/' + id + '.mp3');
+        playSong();
     }
 
     function randomSort(a, b) {
         return Math.random() > .5 ? -1 : 1;
     }
 
-    function showSongLoading() {
-        $('#songloading').removeClass('hide');
-        btnDisable = true;
-    }
-    function hideSongLoading() {
-        $('#songloading').addClass('hide');
-        btnDisable = false;
-    }
+    // function showSongLoading() {
+    //     $('#songloading').removeClass('hide');
+    //     btnDisable = true;
+    // }
+    // function hideSongLoading() {
+    //     $('#songloading').addClass('hide');
+    //     btnDisable = false;
+    // }
 
-    if (true || window.AudioContext) {
-        playLocal = true;
-        songsLen = local.length;
-        songIds = local;
-        songIds.sort(randomSort);
-        songIds.unshift('szjz', 'gbqq');
-        playById(songIds[0]);
+    songIds.unshift('szjz', 'gbqq');
+    songsLen = songIds.length;
+    songIds.sort(randomSort);
+    playById(songIds[0]);
+    if (window.AudioContext) {
         initRhythm();
         initAudioContext(player[0]);
-    }
-    else {
-        songIds.sort(randomSort);
-        playById(songIds[0]);
     }
 
     $.post('./api/weather', null, function (data) {
