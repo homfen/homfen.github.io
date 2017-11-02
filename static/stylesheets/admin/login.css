@@ -1,0 +1,17 @@
+@font-face {
+font-family: 'lato';
+src: url('/fonts/lato.ttf');
+}
+*{margin:0;border:0;}
+body{background-image:url(/images/login/bg.png);background-repeat: repeat;font-family:"lato";}
+a, a:hover{text-decoration: none;}
+#panel{width:326px;height:442px;background-color:rgb(47,54,60);border:1px solid black;border-radius:10px;margin:100px auto;position:relative;overflow:hidden;box-shadow:0 10px 15px rgba(0,0,0,0.3);}
+.header{width:326px;height:138px;background-color:rgb(230,223,205);}
+.middle{width:326px;height:246px;border-bottom:1px solid black;position:relative;}
+.avator{width:168px;height:168px;border-radius:84px;background-color:rgb(230,223,205);position:absolute;left:84px;top:-84px;}
+.avator img{width:156px;height:156px;border-radius:78px;display:block;margin:6px;}
+.form{width:100%;text-align:center;line-height:1.8em;padding-top:100px;}
+.form input {width: 200px;height: 30px; line-height: 30px;border-radius: 3px;margin: 5px 0;font-size: 16px;text-indent: 5px;outline:none;}
+.login{width:205px;height:38px;margin-top:5px;border:1px solid black;border-radius:5px;background-color:rgb(195,74,47);color:rgb(231,223,204);font-size:14px;font-weight:bold;box-shadow:inset 0 1px 0 rgb(209,110,89);text-shadow:0 0 1px rgba(0,0,0,0.3);}
+.footer{width:326px;height:56px;text-align:center;font-size:16px;line-height:56px;color:white;}
+.footer a{color: red;}
