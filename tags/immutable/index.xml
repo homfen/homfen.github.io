@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/immutable/index.xml</link>
+    <link>http://homfen.me/tags/immutable/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/immutable/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/immutable/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Immutable和JavaScript</title>
-      <link>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</link>
+      <link>http://homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</link>
       <pubDate>Sat, 26 Mar 2016 23:12:08 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</guid>
+      <guid>http://homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</guid>
       <description>&lt;p&gt;原文：&lt;a href=&#34;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&#34;&gt;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://jlongster.com/The-Seasonal-Blog-Redux&#34;&gt;不久前&lt;/a&gt;我简要的谈过最近一次对我的博客的重写，并承诺对我学到的具体知识进行更深入的讲解。今天我要聊聊JavaScript中的不可变数据结构，具体就是&lt;a href=&#34;https://github.com/facebook/immutable-js&#34;&gt;immutable.js&lt;/a&gt;和&lt;a href=&#34;https://github.com/rtfeldman/seamless-immutable&#34;&gt;seamless-immutable&lt;/a&gt;两个库。还有其他的库，但是不论你选择什么具体的库，概念上都是在持久化数据结构或拷贝原生JavaScript对象之间进行选择，并且比较两者各自突出的利弊。我也会讲一点&lt;a href=&#34;https://github.com/cognitect/transit-js&#34;&gt;transit-js&lt;/a&gt;，它可以很好的序列化任何东西。&lt;/p&gt;

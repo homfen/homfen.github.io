@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/android/index.xml</link>
+    <link>http://homfen.me/tags/android/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Button and Drawable</title>
-      <link>http://blog.homfen.me/2014/02/10/button-and-drawable/</link>
+      <link>http://homfen.me/2014/02/10/button-and-drawable/</link>
       <pubDate>Mon, 10 Feb 2014 00:16:34 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/02/10/button-and-drawable/</guid>
+      <guid>http://homfen.me/2014/02/10/button-and-drawable/</guid>
       <description>&lt;p&gt;如何获取Button中的Drawable&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Drawable img1 = button.getCompoundDrawables()[0];
@@ -33,10 +33,10 @@ if(bitmap1==bitmap2){
     
     <item>
       <title>Blank page on android application startup</title>
-      <link>http://blog.homfen.me/2013/12/02/blank-page-on-android-application-startup/</link>
+      <link>http://homfen.me/2013/12/02/blank-page-on-android-application-startup/</link>
       <pubDate>Mon, 02 Dec 2013 16:30:21 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2013/12/02/blank-page-on-android-application-startup/</guid>
+      <guid>http://homfen.me/2013/12/02/blank-page-on-android-application-startup/</guid>
       <description>&lt;p&gt;现象： 打开应用时先出现1秒左右的带有标题的空白页面，然后进入LAUNCHER Activity&lt;/p&gt;
 
 &lt;p&gt;原因分析： 在自定义的主题中，设置的父主题，如：&lt;/p&gt;

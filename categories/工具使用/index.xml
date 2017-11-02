@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml</link>
+    <link>http://homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>vim中使用yui compressor</title>
-      <link>http://blog.homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</link>
+      <link>http://homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</link>
       <pubDate>Sun, 16 Aug 2015 23:36:44 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/201508171439741627750219.png&#34;--&gt;
+      <guid>http://homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/201508171439741627750219.png&#34;--&gt;
 
 &lt;p&gt;对于JS和CSS来说，压缩是很常见的操作，通过压缩可以缩小文件尺寸，从而网页加快加载速度。yahoo的yui compressor是一个常用的压缩工具，所以本文就介绍下如何在vim中使用yui compressor。&lt;/p&gt;
 
@@ -78,17 +78,17 @@ endfunction
     
     <item>
       <title>Sublime Text Context Menu</title>
-      <link>http://blog.homfen.me/2015/01/19/sublime-text-context-menu/</link>
+      <link>http://homfen.me/2015/01/19/sublime-text-context-menu/</link>
       <pubDate>Mon, 19 Jan 2015 23:42:53 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/01/19/sublime-text-context-menu/</guid>
+      <guid>http://homfen.me/2015/01/19/sublime-text-context-menu/</guid>
       <description>&lt;p&gt;分享一下如何在Sublime中自定义右键菜单，以Git为例，我们知道Git有很多命令（Sync，Fetch，Show Log等），如果把这些命令加到右键菜单中，是否会方便一些呢？&lt;/p&gt;
 
 &lt;p&gt;打开Sublime，选择Tools-&amp;gt;New Plugin&amp;hellip;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596331604040.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/201505141431596331604040.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;在打开的文件中输入以下代码，TortoiseGit的安装地址自行修改：&lt;/p&gt;
 
@@ -135,15 +135,15 @@ class ShowlogCommand(sublime_plugin.TextCommand):
 
 &lt;p&gt;ok，重启Sublime，随便打开一个文件，右键，就有了&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596331786864.png&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/201505141431596331786864.png&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Sublime Text Build System</title>
-      <link>http://blog.homfen.me/2015/01/07/sublime-text-build-system/</link>
+      <link>http://homfen.me/2015/01/07/sublime-text-build-system/</link>
       <pubDate>Wed, 07 Jan 2015 03:08:12 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/01/07/sublime-text-build-system/</guid>
+      <guid>http://homfen.me/2015/01/07/sublime-text-build-system/</guid>
       <description>&lt;p&gt;前端的同学应该都使用过或听说过Sublime这个工具，大部分人可能只是用它来编写html、css、js代码，其实它还有一个强大的功能叫Build System，下面就通过一个例子来介绍一下这个功能。&lt;/p&gt;
 
 &lt;p&gt;使用VS的同学可能会知道一个工具叫“Microsoft Ajax Minifier”，就是用来压缩js和css文件的，通过减少文件的大小来提升网站的加载速度。使用Build System，也可以在Sublime中使用这个工具。&lt;/p&gt;
@@ -152,11 +152,11 @@ class ShowlogCommand(sublime_plugin.TextCommand):
 
 &lt;p&gt;首先在AjaxMin的&lt;a href=&#34;http://ajaxmin.codeplex.com/&#34; target=&#34;_blank&#34;&gt;官方网站&lt;/a&gt;下载这个工具，并安装。安装完毕后，将安装目录添加的系统的环境变量中。如果一切顺利，这时候打开控制台，并输入“ajaxmin”就会看到如下结果：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596556829319.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/201505141431596556829319.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;第二步，打开Sublime，从菜单栏选择tools-&amp;gt;Build System-&amp;gt;New Build System&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/201505141431596653139320.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/201505141431596653139320.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;在打开的文件中输入以下代码：&lt;/p&gt;
 

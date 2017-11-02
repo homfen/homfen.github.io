@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/shell/index.xml</link>
+    <link>http://homfen.me/tags/shell/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>oh-my-zsh安装配置</title>
-      <link>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <link>http://homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Wed, 22 Jan 2014 23:21:32 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/oh-my-zsh.png&#34;--&gt;
+      <guid>http://homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/oh-my-zsh.png&#34;--&gt;
 
 &lt;p&gt;看了mac君关于zsh的文章“终极Shell”(&lt;a href=&#34;http://macshuo.com/?p=676&#34; target=&#34;_blank&#34;&gt;查看原文&lt;/a&gt;)，一步步操作下来 设置默认使用zsh&lt;/p&gt;
 

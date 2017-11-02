@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/svg/index.xml</link>
+    <link>http://homfen.me/tags/svg/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/svg/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/svg/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Snap.svg</title>
-      <link>http://blog.homfen.me/2015/03/10/snap.svg/</link>
+      <link>http://homfen.me/2015/03/10/snap.svg/</link>
       <pubDate>Tue, 10 Mar 2015 13:41:29 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/03/10/snap.svg/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
+      <guid>http://homfen.me/2015/03/10/snap.svg/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
 
 &lt;p&gt;svg是建立交互性、并有分辨率无关的矢量图形的好方法，而snap.svg可以像jQuery操作Dom一样方便的操作svg图形。&lt;/p&gt;
 
@@ -74,11 +74,11 @@ element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可�
     
     <item>
       <title>SVG初印象</title>
-      <link>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
+      <link>http://homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
       <pubDate>Thu, 05 Feb 2015 00:06:52 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/svg-logo.png&#34;--&gt;
+      <guid>http://homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/svg-logo.png&#34;--&gt;
 
 &lt;p&gt;虽然很早就知道SVG，不过那时对SVG的认识就是用来制作图表的，例如折线图、柱状图之类的里面见的比较多，而如今，SVG已经发展了很多，丰富的api和类库让它可以完成很多有趣的事，可以说和canvas很相似。&lt;/p&gt;
 
@@ -95,7 +95,7 @@ element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可�
 &lt;p&gt;SVGZ文件是指经过gzip算法压缩后的SVG文件，压缩会缩减文件尺寸，所以加载会更快。&lt;/p&gt;
 
 &lt;p&gt;目前各浏览器对SVG基本功能的支持都比较好，除了IE8及之前的浏览器，其他都能完全或部分支持。
-&lt;img src=&#34;http://blog.homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;SVG图形制作工具有Adobe Illustrator、Visio以及CorelDRAW等，开源的工具有Scribus、Karbon14、Inkscape以及Sodipodi等。&lt;/p&gt;
 

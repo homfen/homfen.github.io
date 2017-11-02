@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
+    <link>http://homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Immutable和JavaScript</title>
-      <link>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</link>
+      <link>http://homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</link>
       <pubDate>Sat, 26 Mar 2016 23:12:08 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</guid>
+      <guid>http://homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</guid>
       <description>&lt;p&gt;原文：&lt;a href=&#34;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&#34;&gt;http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://jlongster.com/The-Seasonal-Blog-Redux&#34;&gt;不久前&lt;/a&gt;我简要的谈过最近一次对我的博客的重写，并承诺对我学到的具体知识进行更深入的讲解。今天我要聊聊JavaScript中的不可变数据结构，具体就是&lt;a href=&#34;https://github.com/facebook/immutable-js&#34;&gt;immutable.js&lt;/a&gt;和&lt;a href=&#34;https://github.com/rtfeldman/seamless-immutable&#34;&gt;seamless-immutable&lt;/a&gt;两个库。还有其他的库，但是不论你选择什么具体的库，概念上都是在持久化数据结构或拷贝原生JavaScript对象之间进行选择，并且比较两者各自突出的利弊。我也会讲一点&lt;a href=&#34;https://github.com/cognitect/transit-js&#34;&gt;transit-js&lt;/a&gt;，它可以很好的序列化任何东西。&lt;/p&gt;
@@ -179,11 +179,11 @@ newMap.get(Immutable.Map({ x: 1, y: 2 })); // -&amp;gt; &amp;quot;value&amp;quot
     
     <item>
       <title>Snap.svg</title>
-      <link>http://blog.homfen.me/2015/03/10/snap.svg/</link>
+      <link>http://homfen.me/2015/03/10/snap.svg/</link>
       <pubDate>Tue, 10 Mar 2015 13:41:29 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/03/10/snap.svg/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
+      <guid>http://homfen.me/2015/03/10/snap.svg/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/snap_marquee_hero-1024x517.png&#34;/--&gt;
 
 &lt;p&gt;svg是建立交互性、并有分辨率无关的矢量图形的好方法，而snap.svg可以像jQuery操作Dom一样方便的操作svg图形。&lt;/p&gt;
 
@@ -243,11 +243,11 @@ element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可�
     
     <item>
       <title>SVG初印象</title>
-      <link>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
+      <link>http://homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</link>
       <pubDate>Thu, 05 Feb 2015 00:06:52 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/svg-logo.png&#34;--&gt;
+      <guid>http://homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/svg-logo.png&#34;--&gt;
 
 &lt;p&gt;虽然很早就知道SVG，不过那时对SVG的认识就是用来制作图表的，例如折线图、柱状图之类的里面见的比较多，而如今，SVG已经发展了很多，丰富的api和类库让它可以完成很多有趣的事，可以说和canvas很相似。&lt;/p&gt;
 
@@ -264,7 +264,7 @@ element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可�
 &lt;p&gt;SVGZ文件是指经过gzip算法压缩后的SVG文件，压缩会缩减文件尺寸，所以加载会更快。&lt;/p&gt;
 
 &lt;p&gt;目前各浏览器对SVG基本功能的支持都比较好，除了IE8及之前的浏览器，其他都能完全或部分支持。
-&lt;img src=&#34;http://blog.homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://homfen.me/images/post/QQ20150204-2-1024x368.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;SVG图形制作工具有Adobe Illustrator、Visio以及CorelDRAW等，开源的工具有Scribus、Karbon14、Inkscape以及Sodipodi等。&lt;/p&gt;
 
@@ -310,10 +310,10 @@ element.node.addEventListener(&amp;quot;click&amp;quot;,function(){});//也可�
     
     <item>
       <title>apply &amp; call</title>
-      <link>http://blog.homfen.me/2014/12/10/apply--call/</link>
+      <link>http://homfen.me/2014/12/10/apply--call/</link>
       <pubDate>Wed, 10 Dec 2014 00:20:58 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/12/10/apply--call/</guid>
+      <guid>http://homfen.me/2014/12/10/apply--call/</guid>
       <description>&lt;p&gt;每个Function对象都有apply和call方法，所以可以直接在函数名之后通过“.apply()”或者“.call()”的方式来调用，功能就是在指定的作用域下执行函数。&lt;/p&gt;
 
 &lt;p&gt;apply和call的参数有所不同。apply接受2个参数，第一个参数为要在其作用域中执行函数的对象（object），我们也可以说，将原函数绑定为object的方法(f)，不过这个方法不会一直存在，apply执行结束就会消失，所以不能通过object.f()来调用。第二个参数为一个数组，数组中的元素都是原函数的参数。&lt;/p&gt;
@@ -371,7 +371,7 @@ for(var i=0;i&amp;lt;10;i++){
 
 &lt;p&gt;这段代码的执行结果如下图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;第一遍看的时候可能有点晕，没关系，来分析下。首先，关键的一点，这里用到了闭包，在函数o内部，r是一个全局变量，temp是一个局部变量，把temp指向r指向的函数，之后把r指向另一个新建的函数，在这个函数内部又调用了temp。所以，只要这个r没有被删除，局部变量temp就会一直留在内存中。明白了这一点，接下去理解起来就轻松多了。&lt;/p&gt;
 
@@ -401,11 +401,11 @@ r = function(){
     
     <item>
       <title>Polymer Demo - Simple Google Map</title>
-      <link>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</link>
+      <link>http://homfen.me/2014/10/22/polymer-demo---simple-google-map/</link>
       <pubDate>Wed, 22 Oct 2014 01:34:13 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/3178265018.png&#34;--&gt;
+      <guid>http://homfen.me/2014/10/22/polymer-demo---simple-google-map/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/3178265018.png&#34;--&gt;
 
 &lt;p&gt;最近在学习Polymer，感觉还挺有意思的。主要涉及的是Web Components方面的知识，将所需的组件封装起来，并保存到单独的html文件中，使用的时候只要将这个html文件通过link标签导入进来（像css样式一样），在适当的位置编写相应的自定义标签，就可以了，非常的方便。&lt;/p&gt;
 
@@ -478,9 +478,9 @@ r = function(){
 
 &lt;p&gt;这里设置了width和height属性，就是地图区域的长宽。看一下最终的效果：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1217217468.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/1217217468.png&#34;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1757598925.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/1757598925.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;源码地址：&lt;a href=&#34;https://github.com/homfen/polymer-demo-google-map&#34;&gt;https://github.com/homfen/polymer-demo-google-map&lt;/a&gt;&lt;/p&gt;
 
@@ -489,10 +489,10 @@ r = function(){
     
     <item>
       <title>XMLHttpRequest</title>
-      <link>http://blog.homfen.me/2014/08/22/xmlhttprequest/</link>
+      <link>http://homfen.me/2014/08/22/xmlhttprequest/</link>
       <pubDate>Fri, 22 Aug 2014 12:53:04 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/08/22/xmlhttprequest/</guid>
+      <guid>http://homfen.me/2014/08/22/xmlhttprequest/</guid>
       <description>&lt;p&gt;XMLHTTP是一组API函数集，可被JavaScript、JScript、VBScript以及其它web浏览器内嵌的脚本语言调用，通过HTTP在浏览器和web服务器之间收发XML或其它数据。XMLHTTP最大的好处在于可以动态地更新网页，它无需重新从服务器读取整个网页，也不需要安装额外的插件。该技术被许多网站使用，以实现快速响应的动态网页应用。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -550,10 +550,10 @@ r = function(){
     
     <item>
       <title>Duff&#39;s Device（达夫设备）</title>
-      <link>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
+      <link>http://homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
       <pubDate>Sat, 14 Jun 2014 16:42:18 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
+      <guid>http://homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
       <description>&lt;p&gt;达夫设备算法可以减少循环的迭代次数，如果循环迭代次数少于1000次，你可能只能看到它与普通循环相比微不足道的性能提升，但当循环迭代次数超过1000次，达夫设备的效率将显著提升。&lt;br /&gt;
 原理十分简单，将总的迭代次数以8为基数进行分组，一次迭代执行8次操作，最后再处理余下的小于8次的迭代，所以迭代的总次数由原来的count次变为count/8[+1]次。&lt;/p&gt;
 
@@ -629,11 +629,11 @@ r = function(){
     
     <item>
       <title>Chrome插件开发</title>
-      <link>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
+      <link>http://homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</link>
       <pubDate>Mon, 07 Apr 2014 20:22:55 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/Chrome-Web-Store.jpg&#34;--&gt;
+      <guid>http://homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/Chrome-Web-Store.jpg&#34;--&gt;
 
 &lt;p&gt;关于谷歌浏览器插件开发的详细内容，可以访问谷歌的文档“&lt;a href=&#34;https://developer.chrome.com/extensions/getstarted&#34; target=&#34;_blank&#34;&gt;Getting Start&lt;/a&gt;”，本文主要介绍下简单Chrome插件开发。&lt;/p&gt;
 
@@ -790,11 +790,11 @@ console.log(&amp;quot;loaded&amp;quot;);
     
     <item>
       <title>Responsive Web Design</title>
-      <link>http://blog.homfen.me/2013/12/20/responsive-web-design/</link>
+      <link>http://homfen.me/2013/12/20/responsive-web-design/</link>
       <pubDate>Fri, 20 Dec 2013 00:28:22 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2013/12/20/responsive-web-design/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
+      <guid>http://homfen.me/2013/12/20/responsive-web-design/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
 
 &lt;p&gt;自适应网页设计（英语：Responsive web design，通常缩写为RWD）是一种网页设计的技术做法，该设计可使网站在多种浏览设备（从桌面电脑显示器到移动电话或其他移动产品设备）上阅读和导航，同时减少缩放、平移和滚动。&lt;/p&gt;
 

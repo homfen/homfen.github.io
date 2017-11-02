@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/javascript/index.xml</link>
+    <link>http://homfen.me/tags/javascript/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>apply &amp; call</title>
-      <link>http://blog.homfen.me/2014/12/10/apply--call/</link>
+      <link>http://homfen.me/2014/12/10/apply--call/</link>
       <pubDate>Wed, 10 Dec 2014 00:20:58 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/12/10/apply--call/</guid>
+      <guid>http://homfen.me/2014/12/10/apply--call/</guid>
       <description>&lt;p&gt;每个Function对象都有apply和call方法，所以可以直接在函数名之后通过“.apply()”或者“.call()”的方式来调用，功能就是在指定的作用域下执行函数。&lt;/p&gt;
 
 &lt;p&gt;apply和call的参数有所不同。apply接受2个参数，第一个参数为要在其作用域中执行函数的对象（object），我们也可以说，将原函数绑定为object的方法(f)，不过这个方法不会一直存在，apply执行结束就会消失，所以不能通过object.f()来调用。第二个参数为一个数组，数组中的元素都是原函数的参数。&lt;/p&gt;
@@ -71,7 +71,7 @@ for(var i=0;i&amp;lt;10;i++){
 
 &lt;p&gt;这段代码的执行结果如下图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/3793065623.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;第一遍看的时候可能有点晕，没关系，来分析下。首先，关键的一点，这里用到了闭包，在函数o内部，r是一个全局变量，temp是一个局部变量，把temp指向r指向的函数，之后把r指向另一个新建的函数，在这个函数内部又调用了temp。所以，只要这个r没有被删除，局部变量temp就会一直留在内存中。明白了这一点，接下去理解起来就轻松多了。&lt;/p&gt;
 
@@ -101,10 +101,10 @@ r = function(){
     
     <item>
       <title>XMLHttpRequest</title>
-      <link>http://blog.homfen.me/2014/08/22/xmlhttprequest/</link>
+      <link>http://homfen.me/2014/08/22/xmlhttprequest/</link>
       <pubDate>Fri, 22 Aug 2014 12:53:04 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/08/22/xmlhttprequest/</guid>
+      <guid>http://homfen.me/2014/08/22/xmlhttprequest/</guid>
       <description>&lt;p&gt;XMLHTTP是一组API函数集，可被JavaScript、JScript、VBScript以及其它web浏览器内嵌的脚本语言调用，通过HTTP在浏览器和web服务器之间收发XML或其它数据。XMLHTTP最大的好处在于可以动态地更新网页，它无需重新从服务器读取整个网页，也不需要安装额外的插件。该技术被许多网站使用，以实现快速响应的动态网页应用。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -162,10 +162,10 @@ r = function(){
     
     <item>
       <title>Duff&#39;s Device（达夫设备）</title>
-      <link>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
+      <link>http://homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</link>
       <pubDate>Sat, 14 Jun 2014 16:42:18 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
+      <guid>http://homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</guid>
       <description>&lt;p&gt;达夫设备算法可以减少循环的迭代次数，如果循环迭代次数少于1000次，你可能只能看到它与普通循环相比微不足道的性能提升，但当循环迭代次数超过1000次，达夫设备的效率将显著提升。&lt;br /&gt;
 原理十分简单，将总的迭代次数以8为基数进行分组，一次迭代执行8次操作，最后再处理余下的小于8次的迭代，所以迭代的总次数由原来的count次变为count/8[+1]次。&lt;/p&gt;
 

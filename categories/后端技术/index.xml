@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
+    <link>http://homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Express.js Get Client IP</title>
-      <link>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</link>
+      <link>http://homfen.me/2016/10/19/express.js-get-client-ip/</link>
       <pubDate>Wed, 19 Oct 2016 22:13:44 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</guid>
+      <guid>http://homfen.me/2016/10/19/express.js-get-client-ip/</guid>
       <description>&lt;p&gt;Express中如果想获取客户端的IP，首先要设置trust proxy:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;app.set(&#39;trust proxy&#39;, 1);
@@ -40,11 +40,11 @@ proxy_set_header Host $http_host;
     
     <item>
       <title>Tomcat on Mavericks</title>
-      <link>http://blog.homfen.me/2014/03/31/tomcat-on-mavericks/</link>
+      <link>http://homfen.me/2014/03/31/tomcat-on-mavericks/</link>
       <pubDate>Mon, 31 Mar 2014 00:32:25 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/03/31/tomcat-on-mavericks/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/tomcat.jpeg&#34;--&gt;
+      <guid>http://homfen.me/2014/03/31/tomcat-on-mavericks/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/tomcat.jpeg&#34;--&gt;
 
 &lt;p&gt;在Mac上安装Tomcat非常简单 第一步，从&lt;a href=&#34;http://tomcat.apache.org/index.html&#34; target=&#34;_blank&#34;&gt;Tomcat&lt;/a&gt;官网下载压缩包，然后解压&lt;br /&gt;
 第二步，将解压好的文件夹重新命名一个简单的名字，复制到/Library目录下&lt;br /&gt;

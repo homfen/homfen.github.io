@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/polymer/index.xml</link>
+    <link>http://homfen.me/tags/polymer/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/polymer/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/polymer/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Polymer Demo - Simple Google Map</title>
-      <link>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</link>
+      <link>http://homfen.me/2014/10/22/polymer-demo---simple-google-map/</link>
       <pubDate>Wed, 22 Oct 2014 01:34:13 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/3178265018.png&#34;--&gt;
+      <guid>http://homfen.me/2014/10/22/polymer-demo---simple-google-map/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/3178265018.png&#34;--&gt;
 
 &lt;p&gt;最近在学习Polymer，感觉还挺有意思的。主要涉及的是Web Components方面的知识，将所需的组件封装起来，并保存到单独的html文件中，使用的时候只要将这个html文件通过link标签导入进来（像css样式一样），在适当的位置编写相应的自定义标签，就可以了，非常的方便。&lt;/p&gt;
 
@@ -87,9 +87,9 @@
 
 &lt;p&gt;这里设置了width和height属性，就是地图区域的长宽。看一下最终的效果：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1217217468.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/1217217468.png&#34;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.homfen.me/images/post/1757598925.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://homfen.me/images/post/1757598925.png&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;源码地址：&lt;a href=&#34;https://github.com/homfen/polymer-demo-google-map&#34;&gt;https://github.com/homfen/polymer-demo-google-map&lt;/a&gt;&lt;/p&gt;
 

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/node.js/index.xml</link>
+    <link>http://homfen.me/tags/node.js/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Express.js Get Client IP</title>
-      <link>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</link>
+      <link>http://homfen.me/2016/10/19/express.js-get-client-ip/</link>
       <pubDate>Wed, 19 Oct 2016 22:13:44 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</guid>
+      <guid>http://homfen.me/2016/10/19/express.js-get-client-ip/</guid>
       <description>&lt;p&gt;Express中如果想获取客户端的IP，首先要设置trust proxy:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;app.set(&#39;trust proxy&#39;, 1);

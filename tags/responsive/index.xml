@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homfen&#39;s blog</title>
-    <link>http://blog.homfen.me/tags/responsive/index.xml</link>
+    <link>http://homfen.me/tags/responsive/index.xml</link>
     <description>Recent content on Homfen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://blog.homfen.me/tags/responsive/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://homfen.me/tags/responsive/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Responsive Web Design</title>
-      <link>http://blog.homfen.me/2013/12/20/responsive-web-design/</link>
+      <link>http://homfen.me/2013/12/20/responsive-web-design/</link>
       <pubDate>Fri, 20 Dec 2013 00:28:22 +0000</pubDate>
       
-      <guid>http://blog.homfen.me/2013/12/20/responsive-web-design/</guid>
-      <description>&lt;!--img src=&#34;http://blog.homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
+      <guid>http://homfen.me/2013/12/20/responsive-web-design/</guid>
+      <description>&lt;!--img src=&#34;http://homfen.me/images/post/fc1f4134970a304e15b91017d0c8a786c8175c47.png&#34;--&gt;
 
 &lt;p&gt;自适应网页设计（英语：Responsive web design，通常缩写为RWD）是一种网页设计的技术做法，该设计可使网站在多种浏览设备（从桌面电脑显示器到移动电话或其他移动产品设备）上阅读和导航，同时减少缩放、平移和滚动。&lt;/p&gt;
 

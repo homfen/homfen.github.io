@@ -2,107 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.homfen.me/</loc>
+    <loc>http://homfen.me/</loc>
     <lastmod>2016-10-19T22:13:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2016/10/19/express.js-get-client-ip/</loc>
+    <loc>http://homfen.me/2016/10/19/express.js-get-client-ip/</loc>
     <lastmod>2016-10-19T22:13:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2016/10/14/vsftpd/</loc>
+    <loc>http://homfen.me/2016/10/14/vsftpd/</loc>
     <lastmod>2016-10-14T23:02:08+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</loc>
+    <loc>http://homfen.me/2016/03/26/immutable%E5%92%8Cjavascript/</loc>
     <lastmod>2016-03-26T23:12:08+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</loc>
+    <loc>http://homfen.me/2015/08/16/vim%E4%B8%AD%E4%BD%BF%E7%94%A8yui-compressor/</loc>
     <lastmod>2015-08-16T23:36:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2015/03/10/snap.svg/</loc>
+    <loc>http://homfen.me/2015/03/10/snap.svg/</loc>
     <lastmod>2015-03-10T13:41:29+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</loc>
+    <loc>http://homfen.me/2015/02/05/svg%E5%88%9D%E5%8D%B0%E8%B1%A1/</loc>
     <lastmod>2015-02-05T00:06:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2015/01/19/sublime-text-context-menu/</loc>
+    <loc>http://homfen.me/2015/01/19/sublime-text-context-menu/</loc>
     <lastmod>2015-01-19T23:42:53+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2015/01/07/sublime-text-build-system/</loc>
+    <loc>http://homfen.me/2015/01/07/sublime-text-build-system/</loc>
     <lastmod>2015-01-07T03:08:12+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/12/10/apply--call/</loc>
+    <loc>http://homfen.me/2014/12/10/apply--call/</loc>
     <lastmod>2014-12-10T00:20:58+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/10/22/polymer-demo---simple-google-map/</loc>
+    <loc>http://homfen.me/2014/10/22/polymer-demo---simple-google-map/</loc>
     <lastmod>2014-10-22T01:34:13+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/08/22/xmlhttprequest/</loc>
+    <loc>http://homfen.me/2014/08/22/xmlhttprequest/</loc>
     <lastmod>2014-08-22T12:53:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</loc>
+    <loc>http://homfen.me/2014/06/14/duffs-device%E8%BE%BE%E5%A4%AB%E8%AE%BE%E5%A4%87/</loc>
     <lastmod>2014-06-14T16:42:18+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <loc>http://homfen.me/2014/04/07/chrome%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2014-04-07T20:22:55+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/03/31/tomcat-on-mavericks/</loc>
+    <loc>http://homfen.me/2014/03/31/tomcat-on-mavericks/</loc>
     <lastmod>2014-03-31T00:32:25+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/02/19/kobold2d-and-xcode5/</loc>
+    <loc>http://homfen.me/2014/02/19/kobold2d-and-xcode5/</loc>
     <lastmod>2014-02-19T02:08:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/02/10/button-and-drawable/</loc>
+    <loc>http://homfen.me/2014/02/10/button-and-drawable/</loc>
     <lastmod>2014-02-10T00:16:34+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://homfen.me/2014/01/22/oh-my-zsh%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2014-01-22T23:21:32+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2013/12/20/responsive-web-design/</loc>
+    <loc>http://homfen.me/2013/12/20/responsive-web-design/</loc>
     <lastmod>2013-12-20T00:28:22+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2013/12/02/blank-page-on-android-application-startup/</loc>
+    <loc>http://homfen.me/2013/12/02/blank-page-on-android-application-startup/</loc>
     <lastmod>2013-12-02T16:30:21+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.homfen.me/2013/11/16/mac%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B6%E4%BD%9C/</loc>
+    <loc>http://homfen.me/2013/11/16/mac%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E5%88%B6%E4%BD%9C/</loc>
     <lastmod>2013-11-16T12:13:52+00:00</lastmod>
   </url>
   
